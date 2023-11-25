@@ -1,0 +1,78 @@
+﻿@model IEnumerable<T2NSHOP.Models.EF.ShoppingCart>
+@using T2NSHOP.Common
+
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+
+<div class="table">
+    <table class="table tableItem">
+        <tr class="text-center">
+            <th></th>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Phân loại hàng</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Thành tiền</th>
+            <th>Thao tác</th>
+        </tr>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr class="text-center" id="trow_@item.ProductId" idx="@item.Id">
+                    <td><input type="checkbox" id="ckbItem"value="@item.Id" /></td>
+                    <td><img src="@item.ProductImg" width="60" /></td>
+                    <td>
+                        <a href="/chi-tiet/@item.Alias-p@(item.ProductId)">
+                            @item.ProductName
+                        </a>
+                    </td>
+                    <td>
+                        <div class="arrow-container " style="display: inline-block;">
+                            <p style="float: left; margin-right: 5px;"><span id="viewcolor">@item.Color</span>  ,<span id="viewsize">@item.Size</span> </p>
+                            <button type="button" id="btnButton" data-id="@item.Id" class="btn btn-default btn-sm " style="float: left; width: 25px; height: 25px; margin-right: 5px;"><i class="fa fa-caret-down"></i></button>
+                            <div id="arrow-box">
+                                @*<a href="" class="btn btn-sm btn-closes" style="top: 5px; right: 5px;"><i class="fa fa-times" style="color: #ff0000;"></i></a>*@
+                                <div class="container-fluid">
+                                   @Html.Action("Partial_Item_Cart_Atrri", "ShoppingCart",new { id = item.ProductId , iditem = item.Id})
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="button" value="-" data-id="@item.ProductId" class="qty-btn qty-minus">
+                        <input type="text" id="quantity_@item.ProductId" name="quantity" value="@item.Quantity" min="1"  class="quantity-selector">
+                        <input type="button" value="+" data-id="@item.ProductId" class="qty-btn qty-plus">
+                    </td>
+                    <td>@Common.FormatNumber(item.Price, 0)</td>
+                    <td>@Common.FormatNumber(item.TotalPrice, 0)</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                            <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-primary btnUpdate">Cập nhật</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('body').on('change', '#selectAll', function () {
+                var checkStatus = this.checked;
+                var checkbox = $(this).parents('.card-body').find('tr td input:checkbox');
+                checkbox.each(function () {
+                    this.checked = checkStatus;
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                    } else {
+                        checkbox.attr('selected', '');
+                    }
+                });
+            });
+        }
+    </script>
+}

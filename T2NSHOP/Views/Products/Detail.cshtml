@@ -1,0 +1,412 @@
+﻿@model T2NSHOP.Models.EF.Product
+@using T2NSHOP.Common
+@{
+    ViewBag.Title = "Detail";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
+<link href="~/Content/ProductDetailCss.css" rel="stylesheet" />
+@if (Model != null)
+{
+    <div class="container single_product_container product-details" data-product-id="@Model.Id">
+        <div class="row">
+            <div class="col">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/danh-muc-san-pham/@Model.ProductCategory.Alias-@Model.ProductCategoryID"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.ProductCategory.Titel</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row product-detail-wrapper">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row product-detail-main pr_style_03 clearfix">
+                    <div class="col-md-7 col-sm-12 col-xs-12 product-content-img">
+                        <div class="product-gallery">
+                            @Html.Action("Partial_DetailImage", "Products", new { id = Model.Id })
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12 col-xs-12 product-content-desc" id="detail-product">
+                        <div class="product-title">
+                            <h1>@Model.Title</h1>
+                            @*<div id="idcategoryproduc" data-id="@Model.ProductCategoryID"><p>@Model.ProductCategoryID</p></div>*@
+
+                        </div>
+
+                        @Html.Action("Partial_DetailAttri", "Products", new { id = Model.Id })
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd_policies_wrapper">
+
+                            <div class="pd_policies style_2">
+                                <div class="pd_policies_title">
+                                    <h5>BẢO HÀNH TRỌN ĐỜI</h5> <span>Sản phẩm được bảo hành keo chỉ vĩnh viễn</span>
+                                </div>
+                                <ul class="unstyled">
+                                    <li class="clearfix">
+                                        <a href="#">
+                                            <img src="//theme.hstatic.net/1000339709/1000661422/14/pd_text_icon_2.png?v=47">
+                                            <div class="policies_tit">	MIỄN PHÍ VẬN CHUYỂN</div> <br>
+                                            <div class="policies_descrip"> Nội Thành tp.HCM</div>
+                                        </a>
+                                    </li>
+                                    <li class="clearfix">
+                                        <a href="#">
+                                            <img src="//theme.hstatic.net/1000339709/1000661422/14/pd_text_icon_4.png?v=47">
+                                            <div class="policies_tit">	THANH TOÁN KHI NHẬN HÀNG</div> <br>
+                                            <div class="policies_descrip"> Xem hàng vừa ý mới thanh toán</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Tabs -->
+
+                <div class="tabs_section_container">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="tabs_container" style="margin-top:0;">
+                                    <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                                        <li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
+                                        @*<li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>*@
+                                        <li class="tab" data-active-tab="tab_3"><span>Reviews (2)</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- Tab Description -->
+
+                                <div id="tab_1" class="tab_container active">
+                                    <div class="row">
+                                        @Html.Raw(Model.Detail)
+                                    </div>
+                                </div>
+                                <div id="tab_3" class="tab_container">
+                                    <div class="row">
+
+                                        <!-- User Reviews -->
+
+                                        <div class="col-lg-6 reviews_col">
+                                            <div class="tab_title reviews_title">
+                                                <h4>Reviews (2)</h4>
+                                            </div>
+
+                                            <!-- User Review -->
+
+                                            <div class="user_review_container d-flex flex-column flex-sm-row">
+                                                <div class="user">
+                                                    <div class="user_pic"></div>
+                                                    <div class="user_rating">
+                                                        <ul class="star_rating">
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="review">
+                                                    <div class="review_date">27 Aug 2016</div>
+                                                    <div class="user_name">Brandon William</div>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- User Review -->
+
+                                            <div class="user_review_container d-flex flex-column flex-sm-row">
+                                                <div class="user">
+                                                    <div class="user_pic"></div>
+                                                    <div class="user_rating">
+                                                        <ul class="star_rating">
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="review">
+                                                    <div class="review_date">27 Aug 2016</div>
+                                                    <div class="user_name">Brandon William</div>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Add Review -->
+
+                                        <div class="col-lg-6 add_review_col">
+
+                                            <div class="add_review">
+                                                <form id="review_form" action="post">
+                                                    <div>
+                                                        <h1>Add Review</h1>
+                                                        <input id="review_name" class="form_input input_name" type="text" name="name" placeholder="Name*" required="required" data-error="Name is required.">
+                                                        <input id="review_email" class="form_input input_email" type="email" name="email" placeholder="Email*" required="required" data-error="Valid email is required.">
+                                                    </div>
+                                                    <div>
+                                                        <h1>Your Rating:</h1>
+                                                        <ul class="user_star_rating">
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                                                        </ul>
+                                                        <textarea id="review_message" class="input_review" name="message" placeholder="Your Review" rows="4" required data-error="Please, leave us a review."></textarea>
+                                                    </div>
+                                                    <div class="text-left text-sm-right">
+                                                        <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col text-center">
+            <div class="section_title new_arrivals_title">
+                <h2>Sản phẩm tương tự</h2>
+            </div>
+        </div>
+        <div class="container main_content">
+            <div class="products_iso">
+                <div class="row">
+                    <div class="col">
+                        <div class="product-grid">
+                            @Html.Action("Partial_ProductCategory", "Products", new { id = Model.ProductCategoryID })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<!-- /.modal-Ao -->
+<div class="modal fade" id="modal-SizeAo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                <table style="width:100%" cellspacing="0" cellpadding="2" border="1">
+                    <tbody class="text-center">
+                        <tr>
+                            <td colspan="3"><strong>Size áo bóng đá người lớn VIỆT NAM (CHUẨN)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td>Chiều cao</td>
+                            <td>Cân Nặng</td>
+                        </tr>
+                        <tr>
+                            <td>S</td>
+                            <td>1m50 -1m64</td>
+                            <td>48kg - 53kg</td>
+                        </tr>
+                        <tr>
+                            <td>M</td>
+                            <td>1m65 - 1m72</td>
+                            <td>54kg - 59kg</td>
+                        </tr>
+                        <tr>
+                            <td>L</td>
+                            <td>1m70 -1m75</td>
+                            <td>60kg-70kg</td>
+                        </tr>
+                        <tr>
+                            <td>XL</td>
+                            <td>1m75 trở lên</td>
+                            <td>70kg- 80kg</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer align-self-end">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal-Giay -->
+<div class="modal fade" id="modal-SizeGiay">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="noidungpopup noidung" style="padding-left: 20px;  margin: 0 ">
+                <p><strong>HƯỚNG DẪN CHỌN SIZE GIÀY ĐÁ BÓNG</strong></p>
+
+                <ol>
+                    <li>Chuẩn bị 1 tờ giấy A4, bút và thước đo</li>
+                    <li>Đặt chân lên giấy sao cho má trong song song với cạnh dài của tờ giấy</li>
+                    <li>Vạch 2 đường song song với nhau ở đầu ngón cái và gót bàn chân</li>
+                    <li>Đo khoảng cách 2 vạch và đối chiếu với bảng quy đổi Size giày</li>
+                </ol>
+
+                <p><strong>Bảng quy đổi size Giày đá bóng</strong></p>
+
+                <table border="1" style="margin: auto;" class="text-center">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p><strong>Chiều dài bàn chân (cm)</strong></p>
+                            </td>
+                            <td>
+                                <p><strong>Size VN (EU)</strong></p>
+                            </td>
+                            <td>
+                                <p><strong>Size US</strong></p>
+                            </td>
+                            <td>
+                                <p><strong>Size UK</strong></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><strong>25</strong></p>
+                            </td>
+                            <td>
+                                <p>39</p>
+                            </td>
+                            <td>
+                                <p>8</p>
+                            </td>
+                            <td>
+                                <p>6</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><strong>25,5</strong></p>
+                            </td>
+                            <td>
+                                <p>40</p>
+                            </td>
+                            <td>
+                                <p>8,5</p>
+                            </td>
+                            <td>
+                                <p>6,5</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><strong>26</strong></p>
+                            </td>
+                            <td>
+                                <p>41</p>
+                            </td>
+                            <td>
+                                <p>9</p>
+                            </td>
+                            <td>
+                                <p>7</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><strong>27</strong></p>
+                            </td>
+                            <td>
+                                <p>42</p>
+                            </td>
+                            <td>
+                                <p>10</p>
+                            </td>
+                            <td>
+                                <p>8</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><strong>28</strong></p>
+                            </td>
+                            <td>
+                                <p>43</p>
+                            </td>
+                            <td>
+                                <p>11</p>
+                            </td>
+                            <td>
+                                <p>9</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><strong>28,5</strong></p>
+                            </td>
+                            <td>
+                                <p>44</p>
+                            </td>
+                            <td>
+                                <p>11,5</p>
+                            </td>
+                            <td>
+                                <p>9,5</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                Nếu có bất kỳ thắc mắc gì hãy liên hệ với chúng tôi theo số:&nbsp;<strong><a href="tel:0983373819">0983373819</a>&nbsp;</strong>để được tư vấn chính xác nhất
+            </div>
+            <div class="modal-footer align-self-end">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/single_custom.js"></script>
+    <script src="~/Scripts/jsShop/detailProduct.js"></script>
+    <script>
+        $(document).ready(function () {
+            //ShowModal Hướng dẫn chọn size
+            $('body').on('click', '.btnchonsize', function () {
+                var idCategory = $('#idcategoryproduc').data('id');
+                if (idCategory != "10") {
+                    if (idCategory == "9") {
+                        $('#modal-SizeGiay').modal('show');
+                    }
+                    else {
+                        $('#modal-SizeAo').modal('show');
+                    }
+                }
+            });
+        });
+    </script>
+}
+

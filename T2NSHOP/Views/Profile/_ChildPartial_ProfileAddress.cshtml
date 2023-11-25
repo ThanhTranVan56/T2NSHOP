@@ -1,0 +1,36 @@
+﻿
+@model T2NSHOP.Models.EF.ProfileCustomer
+<div class="card-header" style="margin-top:-30px;">
+    <div class="col-md-12 text-right">
+        <input class="btn btn-primary btn-open-add btnaddAddress" value="Thêm mới địa chỉ">
+    </div>
+</div>
+
+@if (Model != null)
+{
+
+    foreach (var item in Model.AddressCustomers)
+    {
+        <div class="row card-header" style="margin-top:20px;">
+            <div class="col-md-8 addressp">
+                <div>
+                    <span>@item.Name</span> | <span> (+84)@item.PhoneNumber</span>
+                </div>
+                <div>
+                    <span>@item.AddressDetail</span>
+                </div>
+                @if (item.IsDefault)
+                {
+                    <p>Mặc định</p>
+                }
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <a href="#" class="btn btn-sm btn-default btn-open-IsDefualt btnIsDefualtAddress" data-value="@item.IsDefault" data-id="@item.Id">Mặc định</a>
+                    <a href="#" class="btn btn-sm btn-info btn-open-eidt btneditAddress" data-id="@item.Id">Cập nhật</a>
+                    <a href="#" class="btn btn-sm btn-danger btndeleteAddress" data-id="@item.Id">Xóa</a>
+                </div>
+            </div>
+        </div>
+    }
+}

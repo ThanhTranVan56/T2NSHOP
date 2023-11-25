@@ -1,0 +1,29 @@
+﻿@model T2NSHOP.Models.EF.Product
+@if (Model != null)
+{
+    <div class="product-gallery__thumbs-container hidden-sm hidden-xs">
+        <div class="product-gallery__thumbs thumb-fix">
+            @foreach (var item in Model.ProductImage)
+            {
+                if (item.IsDefault)
+                {
+                    <div class="product-gallery__thumb active">
+                        <a class="product-gallery__thumb-placeholder" href="javascript:" data-image="@item.Image">
+                            <img alt="@Model.Title" data-image="@item.Image" src="@item.Image" data-color="@item.Color">
+                        </a>
+                    </div>
+                }
+                <div class="product-gallery__thumb">
+                    <a class="product-gallery__thumb-placeholder" href="javascript:" data-image="@item.Image">
+                        <img alt="@Model.Title" data-image="@item.Image" src="@item.Image" data-color="@item.Color">
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="product-image-detail box__product-gallery scroll">
+        <div class="hidden-sm hidden-xs">
+            <img class="product-image-feature" src="@Model.ProductImage.FirstOrDefault(x=>x.IsDefault).Image" alt="@Model.Title">
+        </div>
+    </div>
+}

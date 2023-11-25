@@ -1,0 +1,376 @@
+﻿@model T2NSHOP.Models.EF.ProfileCustomer
+@{
+    bool isFirstDefault = true;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link href="~/Content/cssShop/cssProject.css" rel="stylesheet" />
+<div class="project_container">
+    <div class="project_category">
+        <div class="project_avata">
+            <a class="p_avata" href="#">
+                <div class="p_img">
+                    @if (Model.Image != null)
+                    {
+                        <img src="@Model.Image" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
+                    }
+                    else
+                    {
+                        <img src="~/Uploads/Images/defauft-avatar.png" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
+                    }
+                </div>
+            </a>
+            <div class="p_uname">
+                <div class="uname">@Model.UserName</div>
+            </div>
+        </div>
+        <div class="p_category">
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/index">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/hoso_img.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp">Hồ sơ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/address">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/diachi_img.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp" id="active">Địa chỉ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/purchase">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/donmua_omg.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp">Đơn mua</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="project_main_content">
+        <div class="content_main" role="main">
+            <div style="display: contents;">
+                <div class="ct_ar">
+                    <div class="ct_hd_ar">
+                        <h1 class="hd_ct">Địa chỉ của tôi</h1>
+
+                    </div>
+                    <div>
+                        <input class="btn btn-primary btn-open-add btnaddAddress" " value="Thêm mới địa chỉ">
+                    </div>
+                </div>
+                <div class="content_ar">
+                    <div class="addre">
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.AddressCustomers)
+                            {
+                                if (item.IsDefault)
+                                {
+                                    <div class="row card-header">
+                                        <div class="col-md-8 addressp">
+                                            <div>
+                                                <span>@item.Name</span> | <span> (+84)@item.PhoneNumber</span>
+                                            </div>
+                                            <div>
+                                                <span>@item.AddressDetail</span>
+                                            </div>
+                                            <p>Mặc định</p>
+                                        </div>
+                                        <div class="col-md-4" style="text-align:right">
+                                            <div>
+                                                <a href="#" class="btn btn-sm btn-default btn-open-IsDefualt btnIsDefualtAddress" data-value="@item.IsDefault" data-id="@item.Id">Mặc định</a>
+                                                <a href="#" class="btn btn-sm btn-info btn-open-eidt btneditAddress" data-id="@item.Id">Cập nhật</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            foreach (var item in Model.AddressCustomers)
+                            {
+                                if (!item.IsDefault)
+                                {
+                                    <div class="row card-header">
+                                        <div class="col-md-8 addressp">
+                                            <div>
+                                                <span>@item.Name</span> | <span> (+84)@item.PhoneNumber</span>
+                                            </div>
+                                            <div>
+                                                <span>@item.AddressDetail</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" style="text-align:right">
+                                            <div>
+                                                <a href="#" class="btn btn-sm btn-default btn-open-IsDefualt btnIsDefualtAddress" data-value="@item.IsDefault" data-id="@item.Id">Mặc định</a>
+                                                <a href="#" class="btn btn-sm btn-info btn-open-eidt btneditAddress" data-id="@item.Id">Cập nhật</a>
+                                                <a href="#" class="btn btn-sm btn-danger btndeleteAddress" data-id="@item.Id">Xóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@*@Html.Action("Partial_Subcrice", "Home")*@
+@*section scripts{
+        <script src="~/Content/assets/js/categories_custom.js"></script>
+    }*@
+
+<div class="modal fade" id="modal-addAddress" data-id="ViewBag.IdUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                <div class="" style="margin:25px 20px 20px ">
+                    <h4>Địa chỉ mới</h4>
+                    <div class=" row">
+                        <div class="col-md-6">
+                            <input type="text" name="NameAdd" id="NameAdd" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="Phone" id="Phone" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                        </div>
+                    </div>
+                    <div>
+                        <select class="form-select form-select-sm mb-3" id="city" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn tỉnh thành</option>
+                        </select>
+
+                        <select class="form-select form-select-sm mb-3" id="district" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn quận huyện</option>
+                        </select>
+
+                        <select class="form-select form-select-sm" id="ward" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn phường xã</option>
+                        </select>
+                    </div>
+                    <input type="text" name="Address" id="Address" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ (tùy chọn)" />
+                    <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                </div>
+
+            </div>
+            <div class="modal-footer align-self-end">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnAdddb">Thêm mới</button>
+            </div>
+        </div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-editAddress">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                <div class="" style="margin:25px 20px 20px ">
+                    <h4>Địa chỉ</h4>
+                    <div style="display:none">
+                        <input type="text" name="IdAdd" id="IdAdd" value="" />
+                    </div>
+                    <div class=" row">
+                        <div class="col-md-6">
+                            <input type="text" name="NameAdd" id="NameEdit" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="Phone" id="PhoneEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                        </div>
+                    </div>
+<input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
+<input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                    </div>
+
+                </div>
+    <div class="modal-footer align-self-end">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-primary" id="btnEditdb">Cập nhật</button>
+    </div>
+            </div>-->
+ @*/.modal-content*@ 
+</div>
+ @*/.modal-dialog*@ 
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        var citis = document.getElementById("city");
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+        var promise = axios(Parameter);
+        promise.then(function (result) {
+            renderCity(result.data);
+        });
+
+        function renderCity(data) {
+            for (const x of data) {
+                citis.options[citis.options.length] = new Option(x.Name, x.Id);
+            }
+            citis.onchange = function () {
+                district.length = 1;
+                ward.length = 1;
+                if (this.value != "") {
+                    const result = data.filter(n => n.Id === this.value);
+
+                    for (const k of result[0].Districts) {
+                        district.options[district.options.length] = new Option(k.Name, k.Id);
+                    }
+                }
+            };
+            district.onchange = function () {
+                ward.length = 1;
+                const dataCity = data.filter((n) => n.Id === citis.value);
+                if (this.value != "") {
+                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                    for (const w of dataWards) {
+                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                    }
+                }
+            };
+
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            //Address
+
+            $('body').on('click', '.btnaddAddress', function () {
+                $('#modal-addAddress').modal('show');
+            });
+            $('body').on('click', '.btneditAddress', function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/Profile/LoadAddress',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (rs) {
+                        $('#IdAdd').val(rs.Id);
+                        $('#NameEdit').val(rs.Name);
+                        $('#PhoneEdit').val(rs.PhoneNumber);
+                        $('#AddressEdit').val(rs.Address);
+                        $('#AddressDtEdit').val(rs.AddressDetail);
+                        $('#modal-editAddress').modal('show');
+                    }
+                });
+            });
+            $('body').on('click', '#btnAdddb', function () {
+                var UId = $("#modal-addAddress").data("id");
+                var Name = $('#NameAdd').val();
+                var Phone = $('#Phone').val();
+                var Address = $('#Address').val();
+                var AddressDt = $('#AddressDt').val();
+                $.ajax({
+                    url: '/Profile/AddAddress',
+                    type: 'POST',
+                    data: { Id: UId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
+                    success: function (res) {
+                        if (res.Success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+            $('body').on('click', '#btnEditdb', function () {
+                var AId = $('#IdAdd').val();
+                var Name = $('#NameEdit').val();
+                var Phone = $('#PhoneEdit').val();
+                var AddressDt = $('#AddressDtEdit').val();
+                $.ajax({
+                    url: '/Profile/EditAddress',
+                    type: 'POST',
+                    data: { Id: AId, Name: Name, Phone: Phone, AddressDt: AddressDt },
+                    success: function (res) {
+                        if (res.Success) {
+                            location.reload();
+                            $('a[href="#activity"]').removeClass('active');
+                            $('a[href="#settings"]').addClass('active');
+                            $('#activity').removeClass('active');
+                            $('#settings').addClass('active');
+                        }
+                    }
+                });
+            });
+
+            $('body').on('click', '.btndeleteAddress', function () {
+                var id = $(this).data('id');
+                if (confirm("Bạn có chắc chắn muốn xóa địa chỉ này?")) {
+                    $.ajax({
+                        url: '/Profile/DeleteAddress',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.Success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+            $('body').on('click', '.btnIsDefualtAddress', function () {
+                var id = $(this).data('id');
+                var valueIs = $(this).data('value');
+                if (valueIs == "True") {
+                    alert("Phải có một địa chỉ mặc định!");
+                }
+                else {
+                    $.ajax({
+                        url: '/Profile/UpdateIsDefual',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.Success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+
+            });
+        });
+       
+        document.getElementById('city').addEventListener('change', updateAddressDt);
+        document.getElementById('district').addEventListener('change', updateAddressDt);
+        document.getElementById('ward').addEventListener('change', updateAddressDt);
+        document.getElementById('Address').addEventListener('input', updateAddressDt);
+        function updateAddressDt() {
+            var citySelect = document.getElementById('city');
+            var selectedCity = citySelect.options[citySelect.selectedIndex].innerHTML;
+            var districtSelect = document.getElementById('district');
+            var selectedDistrict = districtSelect.options[districtSelect.selectedIndex].innerHTML;
+            var wardSelect = document.getElementById('ward');
+            var selectedWard = wardSelect.options[wardSelect.selectedIndex].innerHTML;
+            var address = document.getElementById('Address').value;
+
+            var addressDt = address + ', ' + selectedWard + ', ' + selectedDistrict + ', ' + selectedCity;
+
+            document.getElementById('AddressDt').value = addressDt;
+        }
+
+                    // Hàm xử lý khi có sự thay đổi giá trị
+
+    </script>
+}
+

@@ -1,0 +1,80 @@
+﻿@model T2NSHOP.Models.EF.ProfileCustomer
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link href="~/Content/cssShop/cssProject.css" rel="stylesheet" />
+<div class="project_container">
+    <div class="project_category">
+        <div class="project_avata">
+            <a class="p_avata" href="#">
+                <div class="p_img">
+                    @if (Model.Image != null)
+                    {
+                        <img src="@Model.Image" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
+                    }
+                    else
+                    {
+                        <img src="~/Uploads/Images/defauft-avatar.png" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
+                    }
+                </div>
+            </a>
+            <div class="p_uname">
+                <div class="uname">@Model.UserName</div>
+            </div>
+        </div>
+        <div class="p_category">
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/index">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/hoso_img.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp">Hồ sơ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/address">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/diachi_img.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp ">Địa chỉ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/purchase">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/donmua_omg.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp" id="active">Đơn mua</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="project_main_content">
+        <div class="content_main_pu" role="main">
+            <div style="display: contents;">
+                <div class="ct_m">
+                    <div class="ct_hd">
+                        <h1 class="hd_ct">Đơn hàng</h1>
+                        <div class="hd_ad">Quản lý thông tin đơn hàng</div>
+                    </div>
+                </div>
+                <main class="content_pu">
+                    <div>
+                        @Html.Action("Partial_List_Order", "Profile")
+                    </div>
+                </main>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

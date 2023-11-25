@@ -1,0 +1,50 @@
+﻿@using T2NSHOP.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+@*<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">*@
+<link href="~/Content/cssShop/cssLogin.css" rel="stylesheet" />
+<div class="container" id="container">
+    <div class="form-container">
+        <div>
+            <h1>Sign In</h1>
+            <div class="social-container">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </div>
+            <p>or use your account</p>
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                //<h4>Đăng nhập vào cửa hàng</h4>
+                @Html.ValidationSummary(true, "", new { @style = "color: red" })
+                <div>
+                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color: red" })
+                </div>
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @style = "color: red" })
+                </div>
+
+                <p class="forgot">
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>
+                <p class="submit">
+                    <button type="submit" name="commit">Sign In</button>
+                </p>
+
+            }
+            <div class="login-help">
+                <p>Bạn chưa có tài khoản? <a href="/account/Register">Click vào đây để đăng ký</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<T2NSHOP.Models.EF.ProductAttri>
+
+@{
+    var colors = Model.GroupBy(x => x.Color).Select(x => x.First().Alias).Distinct();
+}
+<div class="row" style="margin-bottom:15px;">
+    <div class="col-md-12">
+        <div class="attribute" style="text-align:left;">
+            <div class="attribute-name" style="font-size:20px; margin-bottom:10px;">MÀU</div>
+            @foreach (var color in colors)
+            {
+                <button type="button" class="btn btn-sm btn-outline-info btnclickcolor" value="@color" data-color="@color" data-id="@ViewBag.Iditem" data-idpr="@Model.First().ProductId">@color</button>
+            }
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-bottom:15px;">
+    <div class="col-md-12">
+        <div class="attribute" style="text-align:left;">
+            <div class="attribute-name" style="font-size: 20px; margin-bottom: 10px;">SIZE</div>
+            @foreach (var size in Model.Select(x => x.Size).Distinct().OrderBy(x => x))
+            {
+                <button type="button" class="btn btn-sm btn-outline-info btnsize" data-size="@size">@size</button>
+            }
+        </div>
+    </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-auto" style="text-align:left;">
+        <div class="btn-group">
+            <a href="" class="btn btn-sm btn-outline-secondary btn-closes">Trở lại</a>
+            <a href="" class="btn btn-sm btn-outline-primary btnSuccesscolorsize">Xác nhận</a>
+        </div>
+    </div>
+</div>

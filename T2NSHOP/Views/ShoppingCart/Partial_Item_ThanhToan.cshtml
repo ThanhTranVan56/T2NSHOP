@@ -1,0 +1,38 @@
+﻿@model IEnumerable<T2NSHOP.Models.EF.ShoppingCart>
+@using T2NSHOP.Common
+
+@if (Model != null && Model.Any())
+{
+    var tongtien = decimal.Zero;
+    <div style="border:1px solid #808080">
+        <span style="font-size: 32px; margin-left:20px;">Sản phẩm@*<span style="float: right; margin-right: 10px;"><small>@Model.Count()</small></span>*@</span>
+        <table class="table checkColorSizead">
+            @foreach (var item in Model)
+            {
+                tongtien += item.TotalPrice;
+                <tr>
+                    <td class="checkColorSize" style="padding-left: 35px;">
+                        <span>@item.ProductName</span>
+                        <br />
+                        <span>Color: @item.Color,Size: @item.Size,Số lượng: @item.Quantity</span>
+                    </td>
+                    <td>@Common.FormatNumber(item.Price*item.Quantity, 0)</td>
+                </tr>
+            }
+            <tr>
+                <th style="padding-left:60px;">Tổng tiền</th>
+                <th>@Common.FormatNumber(tongtien, 0)</th>
+            </tr>
+        </table>
+    </div>
+
+
+
+
+}
+else
+{
+
+}
+
+

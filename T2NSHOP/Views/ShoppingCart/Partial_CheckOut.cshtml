@@ -1,0 +1,95 @@
+﻿@model T2NSHOP.Models.EF.ProfileCustomer
+<link href="~/Content/CheckOutSuccessLoading.css" rel="stylesheet" />
+@using (Ajax.BeginForm("CheckOutCart", "Shoppingcart", new AjaxOptions
+{
+    
+    HttpMethod = "POST",
+    UpdateTargetId = "load_data",
+    OnBegin = "OnBeginCO",
+    OnComplete = "OnSuccessCO",
+    OnFailure = "OnFailure"
+
+}, new { @Id = "myForm" }))
+{
+    <div id="processing">
+        <div class="spinner"></div>
+        <span>Đang thanh toán...</span>
+    </div>
+
+    <script>
+        function OnBeginCO() {
+            document.getElementById("processing").style.display = "flex";
+        }
+        function OnSuccessCO(res) {
+            if (res.responseJSON.Success) {
+                if (res.responseJSON.Code == 1) {
+                    location.href = "/ShoppingCart/CheckOutSuccess";
+                }
+                else {
+                    location.href = res.responseJSON.Url;
+                }
+            }
+
+        }
+        function OnFailure() {
+            document.getElementById("processing").style.display = "none";
+        }
+        function rotateSpinner() {
+            const spinner = document.querySelector('.spinner');
+            let rotate = 0;
+            setInterval(() => {
+                rotate += 45;
+                spinner.style.transform = `rotate(${rotate}deg)`;
+            }, 100);
+        }
+    </script>
+    @Html.AntiForgeryToken()
+
+    <div style="border:1px solid #808080;margin-top:15px;">
+        <span style="font-size: 32px; margin-left:10px;">Địa chỉ nhận hàng</span>
+        @foreach (var item in Model.AddressCustomers)
+        {
+            if (item.IsDefault)
+            {
+                <div class="col-lg-12" style="border-bottom: 1px solid #dee2e6;">
+                    <div class="row" style="margin:10px;">
+                        <div class="col-md-9 addressp">
+                            <div>
+                                <strong>@item.Name|(+84)@item.PhoneNumber</strong> <span style="margin-left:10px;"> @item.Address|@item.AddressDetail</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 addressp text-center">
+                            <input class="btn-default btn btn-sm btnEditAddressOut" style="width:80px;" value="Thay đổi">
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    <div style="padding-left:700px; padding-bottom:20px;">
+        <input class="btn-default btn btn-sm btnAddAddressOutChild" value="Thêm mới địa chỉ">
+    </div>
+        
+
+    </div>
+    <div class="form-group" style="border:1px solid #808080;margin-top:15px; padding:10px;">
+        <span style="font-size: 32px; margin-left:10px;">Phương thức thanh toán</span>
+        <select class="form-control" name="TypePayment" data-id="@Model.Id" id="drTypePayment" style="margin: 25px; width: 400px;">
+            <option value="1" selected>Thanh toán khi giao hàng (COD)</option>
+            <option value="2">Thanh toán trực tuyến</option>
+        </select>
+    </div>
+    <div class="form-group" id="load_form_payment" style="display:none">
+        <h4><label>Chọn phương thức thanh toán:</label><br /></h4>
+        <h5>Cách 1: Chuyển hướng sang VNPay chọn phương thức thanh toán</h5>
+        <label style="margin: 25px;"><input type="radio" name="TypePaymenVN" value="0" checked />Cổng thanh toán VNPAYQR</label>
+        <h5>Cách 2: Tách phương thức thanh toán tại site của Merchant</h5>
+        <label style="margin: 25px;"><input type="radio" name="TypePaymenVN" value="1" />Thanh toán qua ứng dụng hỗ trợ VNPAYQR</label><br />
+        <label style="margin: 25px;"><input type="radio" name="TypePaymenVN" value="2" />ATM-Tài khoản ngân hàng nội địa</label><br />
+        <label style="margin: 25px;"><input type="radio" name="TypePaymenVN" value="3" />Thanh toán qua thẻ quốc tế</label><br />
+    </div>
+    @*@Html.Partial("_ChildPartial_CheckOut")*@
+
+    <div class="form-group" style="margin-bottom:200px;">
+        <button type="submit" class="btn btn-block btn-success">Đặt hàng</button>
+    </div>
+}

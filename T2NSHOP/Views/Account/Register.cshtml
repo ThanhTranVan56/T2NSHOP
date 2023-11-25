@@ -1,0 +1,49 @@
+﻿@model T2NSHOP.Models.RegisterViewModel
+@using T2NSHOP.Models
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<link href="~/Content/cssShop/cssLogin.css" rel="stylesheet" />
+<div class="container" id="container">
+    <div class="form-container">
+        <div>
+            <h1>Create Account</h1>
+            <div class="social-container">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </div>
+            <p style="text-align:center;">or use your email for registration</p>
+
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                //<h4>Đăng nhập vào cửa hàng</h4>
+                @Html.ValidationSummary(true, "", new { @style = "color: red" })
+                <div>
+                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color: red" })
+                </div>
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @style = "color: red" })
+                </div>
+
+                <div>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "ConfirmPassword" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @style = "color: red" })
+                </div>
+
+                <p class="submit">
+                    <button type="submit" name="commit">Sign Up</button>
+                </p>
+
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

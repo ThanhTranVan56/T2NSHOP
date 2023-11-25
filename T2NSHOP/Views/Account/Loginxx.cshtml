@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "SizeGuide";
+    Layout = "~/Views/Shared/_layoutLogin.cshtml";
+}
+<link href="~/Content/fontawesome-6.4.2/css/brands.css" rel="stylesheet" />
+<link href="~/Content/fontawesome-6.4.2/css/fontawesome.css" rel="stylesheet" />
+<link href="~/Content/cssShop/cssLogin.css" rel="stylesheet" />
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="#">
+            <h1>Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <button>Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form action="#">
+            <h1>Sign in</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            @Html.Partial("_Login")
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '#signinID', function () {
+                var email = $('#emailid').val();
+                var password = $('#passwordid').val();
+                $.ajax({
+                    url: '/Account/Login',
+                    type: 'POST',
+                    data: { Email: email, Password: password, RememberMe: false, returnUrl : null },
+                    success: function (response) {
+                        // Xử lý phản hồi thành công (nếu cần)
+                        alert(1);
+                        //window.location.href = response.url; // Chuyển hướng đến URL được trả về (nếu cần)
+                    },
+                    error: function (xhr, status, error) {
+                        // Xử lý lỗi (nếu cần)
+                        console.log(error);
+                    }
+                });
+                
+                //var id = $('.dataidpro').data('id');
+                //var Name = $('#emailid').val();
+                //var Gender = $('input[name="Gender"]:checked').val();
+                //var DateOfBirth = $('input[name="DateOfBirth"]').val();
+                //$.ajax({
+                //    url: '/Profile/AddProfile',
+                //    type: 'POST',
+                //    data: { id: id, Name: Name, Gender: Gender, DateOfBirth: DateOfBirth },
+                //    success: function (result) {
+                //        /*location.reload();*/
+                //        // Xử lý kết quả trả về từ server sau khi cập nhật thành công
+                //    },
+                //    error: function () {
+                //        alert('Lỗi khi cập nhật thông tin người dùng');
+                //    }
+                //});
+            });
+        });
+    </script>
+}

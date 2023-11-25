@@ -1,0 +1,78 @@
+﻿@model IEnumerable<T2NSHOP.Models.EF.ShoppingCart>
+@using T2NSHOP.Common;
+<section>
+    <a href="#">
+        <div>
+
+        </div>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <section>
+                    <div class="dis_item">
+                        <div class="item_tt">
+                            <img src="@item.ProductImg" class="item_img" />
+                            <div class="item_detail">
+                                <div>
+                                    <div class="item_content">
+                                        <span class="ct_mid">@item.ProductName</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="item_atri">
+                                        Phân loại hàng: @item.Color, @item.Size
+                                    </div>
+                                    <div class="item_quantity">
+                                        x@(item.Quantity)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item_price">
+                            <div>
+                                <span>@Common.FormatNumber(item.Price, 0)</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--<tr class="text-center" id="trow_item.ProductId" idx="item.Id">
+                    <td><input type="checkbox" id="ckbItem" value="item.Id" /></td>
+                    <td><img src="item.ProductImg" width="60" /></td>
+                    <td>
+                        <a href="/chi-tiet/item.Alias-p(item.ProductId)">
+                            item.ProductName
+                        </a>
+                    </td>
+                    <td>
+                        <div class="arrow-container " style="display: inline-block;">
+                            <p style="float: left; margin-right: 5px;"><span id="viewcolor">item.Color</span>  ,<span id="viewsize">item.Size</span> </p>
+                            <button type="button" id="btnButton" data-id="item.Id" class="btn btn-default btn-sm " style="float: left; width: 25px; height: 25px; margin-right: 5px;"><i class="fa fa-caret-down"></i></button>
+                            <div id="arrow-box">-->
+                //*<a href="" class="btn btn-sm btn-closes" style="top: 5px; right: 5px;"><i class="fa fa-times" style="color: #ff0000;"></i></a>*@
+                <!--<div class="container-fluid">
+                                    Html.Action("Partial_Item_Cart_Atrri", "ShoppingCart", new { id = item.ProductId, iditem = item.Id })
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="button" value="-" data-id="item.ProductId" class="qty-btn qty-minus">
+                        <input type="text" id="quantity_item.ProductId" name="quantity" value="item.Quantity" min="1" class="quantity-selector">
+                        <input type="button" value="+" data-id="item.ProductId" class="qty-btn qty-plus">
+                    </td>
+                    <td>Common.FormatNumber(item.Price, 0)</td>
+                    <td>Common.FormatNumber(item.TotalPrice, 0)</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="#" data-id="item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                            <a href="#" data-id="item.ProductId" class="btn btn-sm btn-primary btnUpdate">Cập nhật</a>
+                        </div>
+                    </td>
+                </tr>-->
+            }
+        }
+    </a>
+</section>
+

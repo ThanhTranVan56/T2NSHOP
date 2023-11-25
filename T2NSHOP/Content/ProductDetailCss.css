@@ -1,0 +1,724 @@
+﻿
+.setboderbottom {
+    padding-bottom:10px;
+}
+
+.button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 28px;
+    line-height: normal;
+    border: 1px solid #ffffff;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 1px;
+    background-color: transparent;
+    -webkit-transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    z-index: 1;
+    color: #000000;
+    overflow: hidden;
+}
+
+    .button:before {
+        position: absolute;
+        content: '';
+        display: block;
+        left: -2px;
+        top: 0;
+        right: -2px;
+        bottom: 0;
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+        -webkit-transform-origin: left center;
+        transform-origin: left center;
+        z-index: -1;
+        background-color: #ffffff;
+        -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transition: -webkit-transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transition: transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transition: transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),-webkit-transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    }
+
+    .button:hover {
+        color: #fff;
+    }
+
+    .button.dark {
+        color: #fff;
+        border-color: #73c9e2;
+    }
+
+        .button.dark:before {
+            background-color: #73c9e2;
+        }
+
+        .button.dark:hover {
+            color: #000000;
+        }
+
+    .button:hover:before {
+        -webkit-transform-origin: right center;
+        transform-origin: right center;
+        -webkit-transform: scale(0, 1);
+        transform: scale(0, 1);
+    }
+/*--------------------------------------------------------------------
+PRODUCT DETAIL 
+--------------------------------------------------------------------*/
+.product-detail-wrapper {
+    padding: 30px 0;
+}
+
+.product-detail-main {
+    margin-bottom: 10px;
+}
+
+.product-title {
+    padding: 0 0 10px;
+    border-bottom: 1px dotted #dfe0e1;
+}
+
+    .product-title h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 5px;
+        line-height: initial;
+    }
+
+#pro_sku {
+    font-size: 12px;
+    color: #a3a5a7;
+}
+
+.hook-reviews {
+    border-bottom: 1px dotted #dfe0e1;
+    padding-bottom: 15px;
+}
+
+    .hook-reviews .rating {
+        line-height: 1;
+        position: relative;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+        .hook-reviews .rating .rating {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 1;
+            overflow: hidden;
+            line-height: 1;
+        }
+
+        .hook-reviews .rating .icon {
+            display: inline-block;
+        }
+
+            .hook-reviews .rating .icon::before {
+                color: #d5d5d5;
+                content: "\f005";
+                font-family: "FontAwesome",sans-serif;
+                font-size: 13px;
+                font-style: normal;
+            }
+
+            .hook-reviews .rating .icon.star-full::before {
+                color: #ffae00;
+            }
+
+.number-rating {
+    padding-left: 5px;
+    font-size: 13px;
+}
+
+.product-price {
+    padding: 10px 0;
+    border-bottom: 1px dotted #dfe0e1;
+}
+
+    .product-price span.pro-price {
+        font-size: 18px;
+        opacity: .92;
+        font-weight: bold;
+        color: red;
+    }
+
+    .product-price span.pro-sale {
+        display: inline-block;
+        padding: 5px 15px;
+        margin-right: 10px;
+        background: #ededed;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 12px;
+        color: #f94c43;
+    }
+
+    .product-price del {
+        font-size: 14px;
+        color: #777a7b;
+        padding-left: 10px;
+        font-weight: 500;
+    }
+
+.selector-actions {
+    width: 100%;
+    float: left;
+    margin-top: 15px;
+}
+
+.quantity-area {
+    margin-bottom: 15px;
+}
+
+    .quantity-area input#quantity {
+        background: #fff;
+        font-weight: 600;
+        height: 32px;
+        padding: 0;
+        text-align: center;
+        width: 70px;
+        border: 1px solid #f5f5f5;
+        border-left: none;
+        border-right: none;
+        border-radius: 1px;
+        float: left;
+        -webkit-appearance: none;
+    }
+
+    .quantity-area input.qty-btn {
+        float: left;
+        background: #f5f5f5;
+        border: solid 1px #f5f5f5;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        outline: none;
+        height: 32px;
+        width: 32px;
+        text-align: center;
+        border-radius: 0;
+    }
+
+button.btn-addtocart {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: none;
+    padding: 14px 35px;
+    line-height: 22px;
+    width: 100%;
+}
+
+    button.btn-addtocart[disabled] {
+        opacity: 0.8;
+    }
+
+.wrap-addcart button.btn-addtocart.dark {
+    border-color: #73c9e2;
+}
+
+.wrap-addcart button.btn-addtocart:before {
+    background-color: #73c9e2;
+}
+
+.wrap-addcart button.btn-addtocart:hover, .wrap-addcart button.btn-addtocart:focus {
+    color: #73c9e2;
+}
+
+.product-description {
+    margin: 20px 0;
+}
+
+    .product-description .title-bl h2,
+    .product-description h2,
+    .product-description h3 {
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-bottom: 1px solid #000;
+        padding-bottom: 10px;
+        width: 10%;
+        display: block;
+    }
+
+    .product-description * {
+        max-width: 100%
+    }
+
+    .product-description ul {
+        list-style: initial;
+        padding-left: 20px;
+    }
+
+    .product-description ol {
+        list-style-type: decimal;
+        padding-left: 20px;
+    }
+
+    .product-description ul ul {
+        list-style-type: circle;
+    }
+
+        .product-description ul ul ul {
+            list-style-type: square;
+        }
+
+
+.product-gallery__thumbs-container {
+    width: 9%;
+    margin-right: 10px;
+}
+
+.product-gallery__thumbs {
+    box-sizing: border-box;
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 65px;
+    padding-bottom: 1px;
+}
+
+.product-gallery__thumb a {
+    background-color: #f3f3f3;
+    display: block;
+    text-align: center;
+}
+
+.product-gallery__thumb {
+    line-height: 0;
+    margin-bottom: 10px;
+    border: 1px solid #f7f7f8;
+    width: 100%
+}
+
+    .product-gallery__thumb:last-child {
+        margin-bottom: 0
+    }
+
+    .product-gallery__thumb:hover {
+        border-color: #a3a5a7
+    }
+
+    .product-gallery__thumb img {
+        cursor: pointer;
+        background-color: #f7f7f8;
+        width: 100%
+    }
+
+    .product-gallery__thumb.active,
+    .product-gallery__thumb.active:hover {
+        border-color: #808284
+    }
+
+        .product-gallery__thumb.active img {
+            opacity: .9;
+            width: 100%
+        }
+
+.product-gallery {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.product-image-detail {
+    width: 91%;
+    padding-left: 10px;
+    position: relative;
+}
+
+.product-gallery-item {
+    text-align: center;
+    margin-bottom: 10px
+}
+
+.product-full-img {
+    text-align: center;
+}
+
+    .product-full-img .no_image {
+        width: 50%;
+    }
+
+.pr_style_02 .product-image-detail {
+    width: 100%;
+    padding-left: 0px;
+    position: relative;
+}
+
+.pr_style_02 .product-gallery-item {
+    margin-bottom: 10px
+}
+
+@media(min-width:992px) {
+    .pr_style_02 .product-gallery-item {
+        width: 50%;
+        padding-right: 5px;
+        float: left;
+    }
+
+        .pr_style_02 .product-gallery-item:nth-of-type(2n) {
+            padding-left: 5px;
+            padding-right: 0;
+        }
+
+    .pr_style_03 button.btn-addtocart {
+        width: 50%;
+        height: 50px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .pr_style_02 .product-gallery-item:nth-of-type(2n+1) {
+        clear: both;
+    }
+
+    .pr_style_03 .product-gallery__thumbs {
+        position: initial;
+        top: 0;
+    }
+
+    .pr_style_03 .product-content-img {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 65px;
+    }
+}
+.icon-pr-fix.out-with-you {
+    opacity: 0;
+}
+
+.product-content-desc {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 65px;
+}
+
+.product-image-detail img {
+    max-width: 85%;
+}
+
+/* ------------------------ color-circle ------------------------ */
+.color-circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* Tạo class CSS cho các màu sắc */
+.Black .color-circle {
+    background-color: #000000;
+}
+
+.White.color-circle {
+    background-color: #FFFFFF;
+}
+
+.Red .color-circle {
+    background-color: #FF0000;
+}
+
+.Lime .color-circle {
+    background-color: #00FF00;
+}
+
+.Blue .color-circle {
+    background-color: #0000FF;
+}
+.Yellow .color-circle {
+    background-color: #FFFF00;
+}
+
+.Aqua .color-circle {
+    background-color: #00FFFF;
+}
+
+.Magenta .color-circle {
+    background-color: #FF00FF;
+}
+
+.Silver .color-circle {
+    background-color: #C0C0C0;
+}
+
+.Gray .color-circle {
+    background-color: #808080;
+}
+.Maroon .color-circle {
+    background-color: #800000;
+}
+
+.Olive .color-circle {
+    background-color: #808000;
+}
+
+.Green .color-circle {
+    background-color: #008000;
+}
+
+.Purple .color-circle {
+    background-color: #800080;
+}
+
+.Teal .color-circle {
+    background-color: #008080;
+}
+
+.Navy .color-circle {
+    background-color: #000080;
+}
+
+/* Thêm class CSS cho vòng tròn được chọn */
+.sd .color-circle {
+    border: 1px solid #333;
+}
+
+
+
+/* ------------------------ Style variant ------------------------ */
+.product-image-detail ul {
+    margin: 0;
+}
+
+.selector-wrapper, .select {
+    display: none;
+}
+
+.swatch {
+    padding: 10px 0;
+    width: 100%;
+    float: left;
+    border-bottom: 1px dotted #dfe0e1;
+}
+
+    .swatch .header {
+        margin: 0 0 8px;
+        font-size: 13px;
+        text-align: left;
+        line-height: initial;
+    }
+
+    .swatch input {
+        display: none;
+    }
+
+    .swatch > label.tt-label {
+        margin-right: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        vertical-align: middle;
+        text-transform: uppercase;
+        width: 85px;
+        text-align: right;
+    }
+
+    .swatch .select-swap {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .swatch input {
+        display: none;
+    }
+
+    .swatch .swatch-element {
+        display: inline-block;
+        margin-right: 8px;
+        position: relative;
+        vertical-align: bottom;
+    }
+
+        .swatch .swatch-element label {
+            display: block;
+            margin: 0;
+            background: #fff;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+            border: 1px solid #e5e5e5;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .swatch .swatch-element.color.soldout label span {
+            overflow: hidden;
+            position: relative;
+        }
+
+            .swatch .swatch-element.color.soldout label span:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                width: 50%;
+                height: 50%;
+                background: url(//theme.hstatic.net/1000339709/1000661422/14/sold_out.png?v=46) no-repeat;
+                background-size: contain;
+            }
+
+.swatch .swatch-element.soldout label {
+    opacity: 0.5;
+}
+
+.swatch .swatch-element.color label {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    border-radius: 50%;
+    border: none;
+}
+
+.swatch .swatch-element.color span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    font-size: 0;
+    border-radius: 50%;
+    border: 1px solid #dfe0e1;
+}
+
+.swatch .swatch-element.color label.sd {
+    background: transparent;
+    border: 2px solid #808284
+}
+
+        .swatch .swatch-element label.sd {
+            border: 2.5px solid #0b93f8;
+            position: relative;
+            background: url(" data:image/png;base64,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");
+            background-repeat: no-repeat;
+            background-size: 12px;
+        }
+
+.swatch .swatch-element.soldout:not(.color) label {
+    overflow: hidden;
+}
+
+    .swatch .swatch-element.soldout:not(.color) label:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 50%;
+        height: 50%;
+        background: url(//theme.hstatic.net/1000339709/1000661422/14/sold_out.png?v=46) no-repeat;
+        background-size: contain;
+    }
+
+label[for="product-select-option-0"] {
+    display: none;
+}
+
+label[for="product-select-option-1"] {
+    display: none;
+}
+
+label[for="product-select-option-2"] {
+    display: none;
+}
+
+#product-select-option-0 {
+    display: none;
+}
+
+#product-select-option-1 {
+    display: none;
+}
+
+#product-select-option-2 {
+    display: none;
+}
+
+#product-select-option-0 + .custom-style-select-box {
+    display: none !important;
+}
+
+#product-select-option-1 + .custom-style-select-box {
+    display: none !important;
+}
+
+#product-select-option-2 + .custom-style-select-box {
+    display: none !important;
+}
+
+@media (max-width:767px) {
+    .swatch .swatch-element.color {
+        margin: 5px 8px 5px 0;
+    }
+}
+/* ------------------------policies ------------------------ */
+.pd_policies_wrapper {
+    padding: 0 !important;
+    margin-top: 15px;
+}
+
+.pd_policies_title {
+    background: #f6f6f6;
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+}
+
+    .pd_policies_title h5 {
+        color: #288f06;
+        margin-bottom: 2px;
+        font-size: 18px;
+    }
+
+    .pd_policies_title span {
+        display: block;
+        text-indent: 2px;
+    }
+
+.pd_policies.style_2 > ul {
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+
+    .pd_policies.style_2 > ul > li {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+        .pd_policies.style_2 > ul > li a {
+            display: block;
+            padding-left: 45px;
+        }
+
+        .pd_policies.style_2 > ul > li img {
+            float: left;
+            margin-left: -45px;
+        }
+
+        .pd_policies.style_2 > ul > li .policies_tit {
+            float: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .pd_policies.style_2 > ul > li .policies_descrip {
+            float: left;
+            color: #666;
+            font-size: 12px;
+        }

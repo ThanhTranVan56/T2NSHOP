@@ -1,0 +1,465 @@
+﻿@model T2NSHOP.Models.EF.Product
+@{ ViewBag.Title = "Thêm mới sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/products" class="nav-link">Sản phẩm</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Thêm mới</a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới sản phẩm</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin thêm mới sản phẩm</h3>
+
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Add", "Products", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <div class="row">
+                            <div class="col-5 col-sm-2">
+                                <ul class="nav flex-column nav-pills h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Thông tin chung</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#detail" data-toggle="tab">Chi tiết</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Hình ảnh</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#seo" data-toggle="tab">SEO</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-7 col-sm-10">
+                                <div class="tab-content" id="vert-tabs-tabContent">
+                                    <div class="active tab-pane" id="activity">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Tên sản phẩm</label>
+                                            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "Tên sản phẩm" })
+                                            @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Alias</label>
+                                            @Html.TextBoxFor(x => x.Alias, new { @class = "form-control", @placeholder = "Alias" })
+                                            @Html.ValidationMessageFor(x => x.Alias, null, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">SKU</label>
+                                            @Html.TextBoxFor(x => x.ProductCode, new { @class = "form-control", @placeholder = "Mã sản phẩm" })
+                                            @Html.ValidationMessageFor(x => x.ProductCode, null, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Danh mục</label>
+                                            @Html.DropDownListFor(x => x.ProductCategoryID, ViewBag.ProductCategory as SelectList, "-Chọn danh mục sản phẩm-", new { @class = "form-control", @placeholder = "Mô tả" })
+                                            @Html.ValidationMessageFor(x => x.ProductCategoryID, null, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Mô tả</label>
+                                            @Html.TextBoxFor(x => x.Decription, new { @class = "form-control", @placeholder = "Mô tả" })
+                                            @Html.ValidationMessageFor(x => x.Decription, null, new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Chi tiết sản phẩm</label>
+                                            @Html.TextAreaFor(x => x.Detail, new { @class = "form-control", @placeholder = "Chi tiết sản phẩm", @id = "txtDetail" })
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Giá</label>
+                                                    <input type="text" name="demoPrice" value="0" id="demoPrice" class="form-control auto" data-a-dec="," data-a-sep=".">
+                                                    @Html.HiddenFor(x => x.Price, new { @class = "", @placeholder = "Giá Sàn" })
+                                                    @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Giá khuyến mãi</label>
+                                                    <input type="text" name="demoPriceSale" value="0" id="demoPriceSale" class="form-control auto" data-a-dec="," data-a-sep=".">
+                                                    @Html.HiddenFor(x => x.PriceSale, new { @class = "", @placeholder = "Giá khuyến mãi" })
+                                                    @Html.ValidationMessageFor(x => x.PriceSale, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Giá nhập</label>
+                                                    <input type="text" name="demoOriginalPrice" value="0" id="demoOriginalPrice" class="form-control auto" data-a-dec="," data-a-sep=".">
+                                                    @Html.HiddenFor(x => x.OriginalPrice, new { @class = "", @placeholder = "Giá nhập" })
+                                                    @Html.ValidationMessageFor(x => x.OriginalPrice, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="custom-control custom-switch">
+                                                    @Html.CheckBoxFor(x => x.IsActive, new { @class = "custom-control-input", @id = "IsActiveCheckbox", @checked = "checked" })
+                                                    <label for="IsActiveCheckbox" class="custom-control-label">Hiển thị</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="custom-control custom-switch">
+                                                    @Html.CheckBoxFor(x => x.IsHome, new { @class = "custom-control-input", @id = "IsHomeCheckbox", @checked = "checked" })
+                                                    <label for="IsHomeCheckbox" class="custom-control-label">Home</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="custom-control custom-switch">
+                                                    @Html.CheckBoxFor(x => x.IsHot, new { @class = "custom-control-input", @id = "IsHotCheckbox" })
+                                                    <label for="IsHotCheckbox" class="custom-control-label">Hot</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="custom-control custom-switch">
+                                                    @Html.CheckBoxFor(x => x.IsFeature, new { @class = "custom-control-input", @id = "IsFeatureCheckbox" })
+                                                    <label for="IsFeatureCheckbox" class="custom-control-label">Nổi Bật</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="custom-control custom-switch">
+                                                    @Html.CheckBoxFor(x => x.IsSale, new { @class = "custom-control-input", @id = "IsSaleCheckbox" })
+                                                    <label for="IsSaleCheckbox" class="custom-control-label">Khuyến mãi</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="detail" class="tab-pane">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="exampleInputEmail1"> Loại sản phẩm</label>
+                                                <select class="form-control" id="sizeselect" style="width:150px; margin-bottom:10px;" onchange="toggleOptions()">
+                                                    <option value="shirt">Áo</option>
+                                                    <option value="shoes">Giày</option>
+                                                    <option value="ball">Bóng</option>
+                                                </select>
+                                                <table class="table" id="tbAnhSanPhams">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class="text-center align-top" style="width:50px;">
+                                                                <label for="exampleInputEmail1">#</label>
+                                                            </th>
+                                                            <th class="text-center" style="width:150px;">
+                                                                <label for="exampleInputEmail1">Color</label>
+                                                                <select class="form-control" id="colorselect">
+                                                                    <option value="">--Hãy chọn một màu--</option>
+                                                                    <option value="Black">Black</option>
+                                                                    <option value="White">White</option>
+                                                                    <option value="Red">Red</option>
+                                                                    <option value="Lime">Lime</option>
+                                                                    <option value="Blue">Blue</option>
+                                                                    <option value="Yellow">Yellow</option>
+                                                                    <option value="Aqua">Aqua</option>
+                                                                    <option value="Magenta">Magenta </option>
+                                                                    <option value="Silver">Silver</option>
+                                                                    <option value="Gray">Gray</option>
+                                                                    <option value="Maroon">Maroon</option>
+                                                                    <option value="Olive">Olive</option>
+                                                                    <option value="Green">Green</option>
+                                                                    <option value="Purple">Purple</option>
+                                                                    <option value="Teal">Teal</option>
+                                                                    <option value="Navy">Navy</option>
+                                                                </select>
+                                                            </th>
+                                                            <th class="text-center" style="width:100px;">
+                                                                <label for="exampleInputEmail1">Size</label>
+                                                                <select class="form-control" id="shoesOptions" style="display: none;">
+                                                                    @for (int i = 37; i < 44; i++)
+                                                                    {
+                                                                        <option value="@i">@i</option>
+                                                                    }
+                                                                </select>
+                                                                <select class="form-control" id="ballOptions" style="display: none;">
+                                                                    @for (int i = 3; i < 6; i++)
+                                                                    {
+                                                                        <option value="@i">@i</option>
+                                                                    }
+                                                                </select>
+                                                                <select class="form-control" id="shirtOptions">
+                                                                    <option value="S">S</option>
+                                                                    <option value="M">M</option>
+                                                                    <option value="L">L</option>
+                                                                    <option value="XL">XL</option>
+                                                                    <option value="XXL">XXL</option>
+                                                                </select>
+                                                            </th>
+                                                            <th class="text-center" style="width:100px;">
+                                                                <label for="exampleInputEmail1">Số lượng</label>
+                                                                <input type="text" id="quantityct" class="form-control">
+                                                            </th>
+                                                            <th class="text-center" style="width:100px;">
+                                                                <input type="button" class="btn btn-primary " id="iThemMau" onclick="addColorSizeQuantity();" value="Thêm màu" />
+                                                            </th>
+                                                        </tr>
+
+                                                    </thead>
+                                                    <tbody id="tbHtmls">
+                                                    </tbody>
+                                                </table>
+                                                <input type="hidden" id="tCurrentIds" value="0" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="timeline">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            </div>
+                                            <div class="col-md-4 text-left">
+                                                <select class="form-control" id="imagecolorselect" style="width: 220px;">
+                                                    <option value="">--Hãy chọn màu sản phẩm--</option>
+                                                    <option value="Black">Black</option>
+                                                    <option value="White">White</option>
+                                                    <option value="Red">Red</option>
+                                                    <option value="Lime">Lime</option>
+                                                    <option value="Blue">Blue</option>
+                                                    <option value="Yellow">Yellow</option>
+                                                    <option value="Aqua">Aqua</option>
+                                                    <option value="Magenta">Magenta </option>
+                                                    <option value="Silver">Silver</option>
+                                                    <option value="Gray">Gray</option>
+                                                    <option value="Maroon">Maroon</option>
+                                                    <option value="Olive">Olive</option>
+                                                    <option value="Green">Green</option>
+                                                    <option value="Purple">Purple</option>
+                                                    <option value="Teal">Teal</option>
+                                                    <option value="Navy">Navy</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="button" class="btn btn-primary " id="iTaiAnh" onclick="BrowseServer();" value="Tải Ảnh" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                <table class="table table-hover" id="tbAnhSanPham">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">#</th>
+                                                            <th class="text-center">Ảnh</th>
+                                                            <th class="text-center">Ảnh đại diện</th>
+                                                            <th class="text-center">Thao tác</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbHtml">
+                                                    </tbody>
+                                                </table>
+                                                <input type="hidden" id="tCurrentId" value="0" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+                                    <div class="tab-pane" id="seo">
+                                        <form class="form-horizontal">
+                                            <div class="form-group row">
+                                                <label for="inputName" class="col-sm-2 col-form-label">SEO Title</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextBoxFor(x => x.SeoTitel, new { @class = "form-control", @placeholder = "SeoTitel" })
+                                                    @Html.ValidationMessageFor(x => x.SeoTitel, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputEmail" class="col-sm-2 col-form-label">SEO Keywords</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextBoxFor(x => x.SeoKeywords, new { @class = "form-control", @placeholder = "SeoKeywords" })
+                                                    @Html.ValidationMessageFor(x => x.SeoKeywords, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputName2" class="col-sm-2 col-form-label">SEO Decription</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextBoxFor(x => x.SeoDecription, new { @class = "form-control", @placeholder = "SeoDecription" })
+                                                    @Html.ValidationMessageFor(x => x.SeoDecription, null, new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-right" style="margin-top: 30px;">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <a href="/admin/products" class="btn btn-danger">Quay lại</a>
+                            </div>
+                        </div>
+                    }
+                    <!-- your steps content here -->
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+@section scripts{
+    <script>
+        
+        $(document).ready(function () {
+            
+            $('.auto').autoNumeric('init');
+            $('#demoPrice').bind('blur focusout keypress keyup', function () {
+                var demoGet = $('#demoPrice').autoNumeric('get');
+                $('#Price').val(demoGet);
+                $('#Price').autoNumeric('set', demoGet);
+            });
+            $('#demoPriceSale').bind('blur focusout keypress keyup', function () {
+                var demoGet = $('#demoPriceSale').autoNumeric('get');
+                $('#PriceSale').val(demoGet);
+                $('#PriceSale').autoNumeric('set', demoGet);
+            });
+            $('#demoOriginalPrice').bind('blur focusout keypress keyup', function () {
+                var demoGet = $('#demoOriginalPrice').autoNumeric('get');
+                $('#OriginalPrice').val(demoGet);
+                $('#OriginalPrice').autoNumeric('set', demoGet);
+            });
+            CKEDITOR.replace('txtDetail', {
+                custeomConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span'
+            });
+
+            $('body').on('click', '.btnXoaAnh', function () {
+                var conf = confirm('Bạn có muốn xóa ảnh này không?');
+                if (conf === true) {
+                    var _id = $(this).data('id');
+                    $('#trow_' + _id).fadeTo('fast', 0.5, function () {
+                        $(this).slideUp('fast', function () {
+                            $(this).remove();
+                        });
+                    });
+                    var temp = $('#tCurrentId').val();
+                    var currentId = parseInt(temp) - 1;
+                    $('#tCurrentId').val(currentId);
+                }
+            });
+        });
+        function BrowseServer(field) {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                addImageProduct(fileUrl);
+            };
+            finder.popup();
+        }
+        function addImageProduct(url) {
+            var temp = $('#tCurrentId').val();
+            var icolor = $('#imagecolorselect').val();
+            var currentId = parseInt(temp) + 1;
+            var str = "";
+            if (currentId == 1) {
+                str += `<tr id="trow_${currentId}">
+                         <td class="text-center" style="width:50px;">${currentId}</td>
+                         <td class="text-center" style="width:50px;"><img width="80" src="${url}"/><input type="hidden" value=${url} name="Images" /></td>
+                         <td class="text-center" style="width:50px;"><input type="radio" value = "${currentId}" name="rDefault" checked="checked"/></td>
+                         <td class="text-center" style="width:50px;"><input type="text" name="icolor" value = "${icolor}" style="width:80px;"/></td>
+                         <td class="text-center" style="width:50px;"><a href="#" data-id=${currentId} class="btn btn-sm btn-danger btnXoaAnh" >Xóa</a></td>
+                     </tr>`;
+            }
+            else {
+                str += `<tr id="trow_${currentId}">
+                         <td class="text-center" style="width:50px;">${currentId}</td>
+                         <td class="text-center" style="width:50px;"><img width="80" src="${url}"/><input type="hidden" value=${url} name="Images" /></td>
+                         <td class="text-center" style="width:50px;"><input type="radio" name="rDefault" value = "${currentId}"/></td>
+                         <td class="text-center" style="width:50px;"><input type="text" name="icolor" value = "${icolor}" style="width:80px;"/></td>
+                         <td class="text-center" style="width:50px;"><a href="#" data-id=${currentId} class="btn btn-sm btn-danger btnXoaAnh">Xóa</a></td>
+                     </tr>`;
+            }
+            $('#tbHtml').append(str);
+            $('#tCurrentId').val(currentId);
+        }
+        function addColorSizeQuantity() {
+            var dataSelectC = $('#colorselect').val();
+            var dataSize = $('#sizeselect').val();
+            if (dataSize == "shoes") {
+                var dataSelectS = $('#shoesOptions').val();
+            } else if (dataSize == "shirt") {
+                var dataSelectS = $('#shirtOptions').val();
+            } else if (dataSize == "ball") {
+                var dataSelectS = $('#ballOptions').val();
+            } else {
+                var dataSelectS = $('#shirtOptions').val();
+            }
+            var dataSelectQ = $('#quantityct').val();
+            var temp = $('#tCurrentIds').val();
+            var currentId = parseInt(temp) + 1;
+            var str = `
+                            <tr id="trow_${currentId}">
+                                <td class="text-center" style="width:50px;"> ${currentId} </td>
+                                <td class="form text-center" style="width:50px;"><input  style="font-size: revert;font-family: revert;" type="text" name="SeColor" value = "${dataSelectC}"/></td>
+                                <td class="form text-center" style="width:50px;"><input  style="font-size: revert;font-family: revert;" type="text" name="SeSize" value = "${dataSelectS}"/></td>
+                                <td class="form text-center" style="width:50px;"><input  style="font-size: revert;font-family: revert;" type="text" name="SeQuantity" value = "${dataSelectQ}"/></td>
+                                <td class="form text-center" style="width:50px;">
+                                    <button class="btn btn-sm btn-danger" onclick="removeRow(this)">Xóa</button>
+                                </td>
+                            </tr>
+                          `;
+            $('#tbHtmls').append(str);
+            $('#tCurrentIds').val(currentId);
+        }
+        function toggleOptions() {
+            var selectElement = document.getElementById("sizeselect");
+            var selectedValue = selectElement.value;
+
+            var shoesOptions = document.getElementById("shoesOptions");
+
+            if (selectedValue === "shirt") {
+                shirtOptions.style.display = "block";
+                shoesOptions.style.display = "none";
+                ballOptions.style.display = "none";
+            } else if (selectedValue === "shoes"){
+                shirtOptions.style.display = "none";
+                shoesOptions.style.display = "block";
+                ballOptions.style.display = "none";
+            } else if (selectedValue === "ball") {
+                shirtOptions.style.display = "none";
+                shoesOptions.style.display = "none";
+                ballOptions.style.display = "block";
+            }
+        }
+    </script>
+}

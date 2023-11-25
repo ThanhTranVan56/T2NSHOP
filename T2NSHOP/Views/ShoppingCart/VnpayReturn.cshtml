@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "VnpayReturn";
+}
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link href="~/Content/clients/dist/css/adminlte.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="row" style="padding-bottom:200px;">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/san-pham"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+            <!-- Main Content -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="">Thanh toán</h1>
+                    @if (ViewBag.InnerText != null)
+                    {
+                        <p> @ViewBag.InnerText</p>
+                        <div>
+                            Vui lòng kiểm tra lại quá trình thanh toán, hoặc liên hệ bộ phận hỗ trợ của chúng tôi qua Hotline: *****
+                        </div>
+                    }
+                    else
+                    {
+                        <p>Bạn đã thanh toán thành công với @ViewBag.ThanhToanThanhCong !</p>
+                        <div>
+                            Để tiếp tục mua hàng. Vui lòng lick vào đây <a href="/san-pham">sản phẩm</a>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

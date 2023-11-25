@@ -1,0 +1,382 @@
+﻿
+@using T2NSHOP.Common
+@{
+    ViewBag.Title = "Thanh toán";
+}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link href="~/Content/clients/dist/css/adminlte.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/san-pham"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+            <!-- Main Content -->
+            <div class="row">
+                <div class="col-md-12" style="margin-left:50px;">
+                    <h1 class="text-center">Thanh toán</h1>
+                    <p>Bạn hãy kiểm tra lại thông tin đơn hàng cho chính xác!</p>
+                </div>
+            </div>
+            @if (ViewBag.CheckCart != null)
+            {
+                <div class="row" style="margin-left: 50px; max-width: 1000px;">
+                    <div style="display:none;" id="show_success"></div>
+                    <div class="col-12">
+                        @Html.Action("Partial_Item_ThanhToan", "ShoppingCart")
+                    </div>
+                    <br />
+                    <div class="col-12">
+                        @Html.Action("Partial_CheckOut", "Shoppingcart")
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div>
+                    Bạn chưa có sản phẩm nào trong giỏ hàng !. Vui lòng quay lại chọn <a href="/san-pham">sản phẩm</a> để mua hàng
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-ListAddressOut" data-target="#modal-ListAddressOut" data-id="@ViewBag.IdUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                @Html.Action("_ChildPartial_CheckOut", "Shoppingcart")
+            </div>
+            <div class="modal-footer align-self-end">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                @*<button type="button" class="btn btn-primary" id="btnAdddbOut">Xác nhận</button>*@
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-addAddressOut" data-id="@ViewBag.IdUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                <div class="" style="margin:25px 20px 20px ">
+                    <h4>Địa chỉ mới</h4>
+                    <div class=" row">
+                        <div class="col-md-6">
+                            <input type="text" name="NameAdd" id="NameAdd" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="Phone" id="Phone" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <select class="form-select form-select-sm mb-3" id="city" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn tỉnh thành</option>
+                        </select>
+
+                        <select class="form-select form-select-sm mb-3" id="district" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn quận huyện</option>
+                        </select>
+
+                        <select class="form-select form-select-sm" id="ward" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn phường xã</option>
+                        </select>
+                    </div>
+                    <input type="text" name="Address" id="Address" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
+                    <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                </div>
+
+            </div>
+            <div class="modal-footer align-self-end">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnAdddbOut">Thêm mới</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-editAddressOut">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                <div class="" style="margin:25px 20px 20px ">
+                    <h4>Địa chỉ</h4>
+                    <div style="display:none">
+                        <input type="text" name="IdAdd" id="IdAdd" value="" />
+                    </div>
+                    <div class=" row">
+                        <div class="col-md-6">
+                            <input type="text" name="NameAdd" id="NameEdit" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="Phone" id="PhoneEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                        </div>
+                    </div>
+
+
+                    <input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
+                    <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                </div>
+
+            </div>
+            <div class="modal-footer align-self-end">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnEditdbOut">Cập nhật</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@section scripts{
+
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        var citis = document.getElementById("city");
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+        var promise = axios(Parameter);
+        promise.then(function (result) {
+            renderCity(result.data);
+        });
+
+        function renderCity(data) {
+            for (const x of data) {
+                citis.options[citis.options.length] = new Option(x.Name, x.Id);
+            }
+            citis.onchange = function () {
+                district.length = 1;
+                ward.length = 1;
+                if (this.value != "") {
+                    const result = data.filter(n => n.Id === this.value);
+
+                    for (const k of result[0].Districts) {
+                        district.options[district.options.length] = new Option(k.Name, k.Id);
+                    }
+                }
+            };
+            district.onchange = function () {
+                ward.length = 1;
+                const dataCity = data.filter((n) => n.Id === citis.value);
+                if (this.value != "") {
+                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                    for (const w of dataWards) {
+                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                    }
+                }
+            };
+
+        }
+        document.getElementById('city').addEventListener('change', updateAddressDt);
+        document.getElementById('district').addEventListener('change', updateAddressDt);
+        document.getElementById('ward').addEventListener('change', updateAddressDt);
+        document.getElementById('Address').addEventListener('input', updateAddressDt);
+        function updateAddressDt() {
+            var citySelect = document.getElementById('city');
+            var selectedCity = citySelect.options[citySelect.selectedIndex].innerHTML;
+            var districtSelect = document.getElementById('district');
+            var selectedDistrict = districtSelect.options[districtSelect.selectedIndex].innerHTML;
+            var wardSelect = document.getElementById('ward');
+            var selectedWard = wardSelect.options[wardSelect.selectedIndex].innerHTML;
+            var address = document.getElementById('Address').value;
+
+            var addressDt = address + ', ' + selectedWard + ', ' + selectedDistrict + ', ' + selectedCity;
+
+            document.getElementById('AddressDt').value = addressDt;
+        }
+    </script>
+    <script>
+        function OnFailure(rs) {
+            if (!rs.Success) {
+                $('#show_success').html("Bạn mua hàng thất bại!. Xin vui lòng thử lại!")
+            }
+        }
+        $(document).ready(function () {
+            var idss = $('#drTypePayment').data('id');
+            $.ajax({
+                url: '/Profile/UploadPayment',
+                type: 'POST',
+                data: { TypePayment: 1, id: idss },
+                success: function (rs) {
+                    if (rs.Success) {
+                    }
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+            $('body').on('change', '#drTypePayment', function () {
+                var type = $(this).val();
+                $('#load_form_payment').hide();
+                if (type == "2") {
+                    $('#load_form_payment').show();
+                }
+            });
+            $('#drTypePayment').on('change', function () {
+                debugger;
+                var id = $('#drTypePayment').data('id');
+                var typePayment = $(this).val();
+                $.ajax({
+                    url: '/Profile/UploadPayment',
+                    type: 'POST',
+                    data: { TypePayment: typePayment, id: id },
+                    success: function (rs) {
+                        if (rs.Success) {
+                            /*alert("ok");*/
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+            });
+            $('input[name=TypePaymenVN]').on('change', function () {
+                var id = $('#drTypePayment').data('id');
+                var typePaymenVN = $('input[name=TypePaymenVN]:checked').val();
+                $.ajax({
+                    url: '/Profile/UploadPaymentVN',
+                    type: 'POST',
+                    data: { TypePaymenVN: typePaymenVN, id: id },
+                    success: function (rs) {
+                        if (rs.Success) {
+                            /*alert("ok");*/
+                        }
+                    },
+                    error: function (xhr, status, error) {
+
+                    }
+                });
+            });
+            $('body').on('click', '.btnEditAddressOut', function () {
+                $('#modal-ListAddressOut').modal('show');
+            });
+
+            $('body').on('click', '.btnAddAddressOutChild', function () {
+                $('#modal-addAddressOut').modal('show');
+            });
+
+            $('body').on('click', '.btnEditAddressOutChild', function () {
+
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/Profile/LoadAddress',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (rs) {
+                        $('#IdAdd').val(rs.Id);
+                        $('#NameEdit').val(rs.Name);
+                        $('#PhoneEdit').val(rs.PhoneNumber);
+                        $('#AddressEdit').val(rs.Address);
+                        $('#AddressDtEdit').val(rs.AddressDetail);
+                        $('#modal-editAddressOut').modal('show');
+                    }
+                });
+            });
+            $('body').on('click', '#btnAdddbOut', function () {
+                var UId = $("#modal-addAddress").data("id");
+                var Name = $('#NameAdd').val();
+                var Phone = $('#Phone').val();
+                var Address = $('#Address').val();
+                var AddressDt = $('#AddressDt').val();
+                $.ajax({
+                    url: '/Profile/AddAddress',
+                    type: 'POST',
+                    data: { Id: UId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
+                    success: function (res) {
+                        if (res.Success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+            $('body').on('click', '#btnEditdbOut', function () {
+                var AId = $('#IdAdd').val();
+                var Name = $('#NameEdit').val();
+                var Phone = $('#PhoneEdit').val();
+                var Address = $('#AddressEdit').val();
+                var AddressDt = $('#AddressDtEdit').val();
+                $.ajax({
+                    url: '/Profile/EditAddress',
+                    type: 'POST',
+                    data: { Id: AId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
+                    success: function (res) {
+                        if (res.Success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+            $('body').on('click', '.btnIsDefualtAddress', function () {
+                var id = $(this).data('id');
+                var valueIs = $(this).data('value');
+                if (valueIs == "True") {
+                    alert("Phải có một địa chỉ mặc định!");
+                }
+                else {
+                    $.ajax({
+                        url: '/Profile/UpdateIsDefual',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.Success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+
+            });
+            $('#myForm').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true
+                    },
+                    'Phone': {
+                        required: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'Email': {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    'CustomerName': 'Bạn không để trống trường này',
+                    'Phone': 'Bạn không để trống trường này',
+                    'Address': 'Bạn không để trống trường này',
+                    'Email': 'Email không hợp lệ'
+                }
+            });
+        });
+
+    </script>
+}
+
+

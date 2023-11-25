@@ -1,0 +1,90 @@
+﻿@model IEnumerable<T2NSHOP.Models.EF.ProductAttri>
+@using T2NSHOP.Common
+@{
+    var colors = Model.GroupBy(x => x.Color).Select(x => x.First().Alias).Distinct();
+}
+
+<style>
+    .btn-open-size:hover > p {
+        color: red;
+    }
+</style>
+<p> Lượt xem: <b> @ViewBag.ViewCount </b></p>
+
+<div class="product-price" id="price-preview"><strong>Giá: </strong><span class="pro-price">@Common.FormatNumber(ViewBag.Price) </span></div>
+<form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
+    <div class="select-swatch clearfix">
+        <div id="variant-swatch-1" class="swatch clearfix" data-option="option2" data-option-index="1">
+            <div><strong>Màu sắc : </strong><span id="spancolor"></span></div>
+            <div class="select-swap">
+
+                @foreach (var color in colors)
+                {
+                    <div data-value="@color" class="n-sd swatch-element color @color">
+                        <input class="variant-1" id="swatch-@color" type="radio" name="option2" data-id="@Model.First().ProductId" value="@color" data-vhandle="@color">
+                        <label for="swatch-@color">
+                            <span class="color-circle"></span>
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div id="variant-swatch-0" class="swatch clearfix" data-option="option1" data-option-index="0">
+            <div><strong>Kích thước : </strong> <span id="spansize"></span></div>
+            <div class="select-swap ">
+                @foreach (var size in Model.Select(x => x.Size).Distinct())
+                {
+                    <div class="n-sd swatch-element size-quantity" data-size="@size">
+                        <input class="variant-0" id="swatch-@size" type="radio" name="option1" value="@size" data-vhandle="@size">
+                        <label for="swatch-@size">
+                            <span>@size</span>
+                        </label>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="setboderbottom">
+        <a href="#" class="btn-open-size btnchonsize">
+            <p style="color: #0b93f8;">👉 Hướng dẫn lựa chọn size 👈</p>
+        </a>
+    </div>
+    <div class="selector-actions">
+        <!-- Quantity -->
+        <div class="quantity-area clearfix">
+            <input type="button" value="-" class="qty-btn">
+            <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+            <input type="button" value="+" class="qty-btn">
+
+        </div>
+        <div class="setboderbottom">
+            <span>
+                Sản phẩm có sẵn : <strong id="showquantitydata"></strong>
+            </span>
+        </div>
+
+        <!-- Add to Cart -->
+        <div class="wrap-addcart clearfix">
+            @if (Request.IsAuthenticated)
+            {
+                <button type="button" id="add-to-cart" class="btnAddToCart button dark btn-addtocart addtocart-modal" name="add" data-id="@ViewBag.Id">Thêm vào giỏ</button>
+            }
+            else
+            {
+                <div type="button" class="button dark addtocart-modal">
+                    <a href="/account/Login?returnUrl=@Url.Encode(Request.RawUrl)" style="color:#000000">Đăng nhập để mua hàng</a>
+                </div>
+            }
+
+        </div>
+
+    </div>
+    @*<div class="product-action-bottom visible-xs">
+            <div class="input-bottom">
+                <input id="quan-input" type="number" value="1" min="1">
+            </div>
+            <button type="button" id="add-to-cartbottom" class="add-to-cartProduct add-cart-bottom button dark addtocart-modal" name="add">Thêm vào giỏ</button>
+        </div>*@
+</form>

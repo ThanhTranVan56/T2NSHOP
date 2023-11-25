@@ -1,0 +1,40 @@
+﻿@if (!Request.IsAuthenticated)
+{
+    <a href="#">
+            My Account
+            <i class="fa fa-angle-down"></i>
+        </a>
+    <ul class="account_selection">
+            <li><a href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a></li>
+            <li><a href="/account/Register"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng ký</a></li>
+        </ul>
+}
+else
+{
+
+    <a href="#">
+        @if (ViewBag.Image != null)
+        {
+            <img src="@ViewBag.Image" id="UserImage" class="img-circle elevation-2" alt="User Image" style="width: 1.5rem; height:1.3rem">
+        }
+        else
+        { <span>Welcome</span>}
+        @if (ViewBag.Name != null)
+        {
+            @ViewBag.Name
+        }
+        else
+        {@User.Identity.Name}
+
+        <i class="fa fa-angle-down"></i>
+    </a>
+    <ul class="account_selection">
+        <li>
+            <a href="/Profile/Index">
+                <i class="fa fa-address-card" aria-hidden="true"></i>Hồ sơ
+            </a>
+        </li>
+        <li><a href="javascript:document.getElementById('logOffForm').submit()"><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</a></li>
+    </ul>
+}
+

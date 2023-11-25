@@ -1,0 +1,49 @@
+﻿.arrow-container {
+    position: relative;
+}
+
+#arrow-box {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    max-height: 28.125rem;
+    width: 19.6875rem;
+    transform: translateX(-50%);
+    /*transform: translateY(-5%);*/
+    background: rgb(255, 255, 255);
+    border: 1px solid #ccc;
+    border-radius: 0.125rem;
+    padding: 10px 15px;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.09);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+    #arrow-box::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        background: rgb(255, 255, 255);
+        border: 1px solid #ccc;
+        border-bottom: none;
+        border-right: none;
+        width: 20px;
+        height: 20px;
+    }
+
+    #arrow-box.show {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+.arrow-container #btnButton:focus + #arrow-box {
+    display: block;
+}
+button {
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .75rem;
+}

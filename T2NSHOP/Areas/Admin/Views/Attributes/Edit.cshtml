@@ -1,0 +1,56 @@
+﻿@model List<T2NSHOP.Models.EF.ProductAttri>
+@{
+    ViewBag.Title = "Thuộc tính sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAttributes.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Attributes", FormMethod.Post, new { }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="card-header">
+        <h3 class="card-title">@ViewBag.Tile</h3>
+
+        <div class="card-tools">
+            <input type="submit" style="text-align:right" value="Cập nhật" class="btn btn-primary" />
+        </div>
+
+    </div>
+    <style>
+        .input {
+            font-size: revert;
+            font-family: revert;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th class="text-center" style="width:50px">Id</th>
+                <th class="text-center" style="width:90px">Color</th>
+                <th class="text-center" style="width:90px">Size</th>
+                <th class="text-center" style="width:90px">Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(model => model[i].Id)
+                        @Html.HiddenFor(model => model[i].ProductId)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model[i].Color, new { @style = "font-size: revert;" })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model[i].Size, new { @style = "font-size: revert;" })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model[i].Quantity, new { @style = "font-size: revert;" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

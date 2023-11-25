@@ -1,0 +1,187 @@
+﻿@model IEnumerable<T2NSHOP.Models.EF.ProductImage>
+@{
+    ViewBag.Title = "Ảnh sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutEmpty.cshtml";
+}
+
+<style>
+    .row_color {
+        margin-bottom: 25px;
+        padding-bottom:10px;
+        border-bottom: 1px solid #808080;
+    }
+    .color-tools {
+        margin-bottom: 15px;
+        margin-left: 15px;
+    }
+    .color-tools label{
+        margin-right:30px
+    }
+    .color-tools input{
+        margin-right:30px
+    }
+    .col_image{
+        margin-bottom:10px;
+    }
+    .image-container {
+        width: 180px;
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .box-btn {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+    }
+</style>
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Ảnh sản phẩm</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-danger " id="btnDeleteAll" data-card-widget="collapse" title="Collapse">
+                    Xóa hết
+                </button>
+                @*<input type="button" class="btn btn-primary " id="iTaiAnh" onclick="BrowseServer();" value="Tải Ảnh" />*@
+            </div>
+        </div>
+        <div class="card-body">
+            <div >
+                @if (Model != null)
+                {
+                    foreach (String itemcolor in ViewBag.colorList)
+                    {
+                    <div class="color-tools">
+                        <label >@itemcolor</label>
+                        <input type="button" class="btn btn-primary " data-id="@itemcolor" onclick="BrowseServer(this);" value="Tải Ảnh" />
+                    </div>
+                        <div class="row_color row">
+                            
+                            @foreach (var item in Model)
+                            {
+                                if (item.Color == itemcolor)
+                                {
+                                    <div class="col-4 col_image" id="trow_@item.Id">
+                                        <div class="image-container">
+                                            <img src="@item.Image" />
+                                        </div>
+                                        <div class="box-btn">
+                                            <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-trash"></i></a>
+                                            @if (item.IsDefault == true)
+                                            {
+                                                <a href="#" data-id="@item.Id" class="btn btn-sm btn-success btnDefault"><i class="fas fa-check-circle" style="color: #ffffff;"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDefault"><i class="fas fa-window-close" style="color: #ffffff;"></i></a>
+
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                           
+                        </div>
+
+
+                    }
+                }
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<script>
+    function BrowseServer(button) {
+        var colors = button.getAttribute('data-id');
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (fileUrl) {
+        
+            AddImage(colors,@ViewBag.ProductId, fileUrl);
+        };
+        finder.popup();
+    }
+    function AddImage(colors,id, url) {
+        //var colors = $('#iTaiAnh').data('id');
+        $.ajax({
+            url: '/admin/productimage/AddImage',
+            type: 'POST',
+            data: { productId: id, color: colors, url: url },
+            success: function (rs) {
+                if (rs.success) {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+    $(document).ready(function () {
+        $('body').on('click', '.btnDefault', function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var id = btn.data("id");
+            var Prid = @ViewBag.ProductId;
+            $.ajax({
+                url: '/admin/productimage/IsDefault',
+                type: 'POST',
+                data: { Prid: Prid, id: id },
+                success: function (rs) {
+                    if (rs.success) {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+        $('body').on('click', '.btnDelete', function () {
+            var id = $(this).data('id');
+            var conf = confirm('Bạn có muốn xóa ảnh này không');
+            if (conf === true) {
+                $.ajax({
+                    url: '/admin/productimage/delete',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            $('#trow_' + id).remove();
+                        }
+                    }
+                });
+            }
+        });
+        $('body').on('click', '#btnDeleteAll', function (e) {
+            e.preventDefault();
+            var conf = confirm('Bạn có muốn xóa hết tất cả ảnh không');
+            var id = @ViewBag.ProductId;
+            if (conf === true) {
+                $.ajax({
+                    url: '/admin/productimage/DeleteAll',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,182 @@
+﻿@model T2NSHOP.Models.EF.ProfileCustomer
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link href="~/Content/cssShop/cssProject.css" rel="stylesheet" />
+<div class="project_container">
+    <div class="project_category">
+        <div class="project_avata">
+            <a class="p_avata" href="#">
+                <div class="p_img">
+                    @if (Model.Image != null)
+                    {
+                        <img src="@Model.Image" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
+                    }
+                    else
+                    {
+                        <img src="~/Uploads/Images/defauft-avatar.png" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
+                    }
+                </div>
+            </a>
+            <div class="p_uname">
+                <div class="uname">@Model.UserName</div>
+            </div>
+        </div>
+        <div class="p_category">
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/index">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/hoso_img.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp" id="active">Hồ sơ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/address">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/diachi_img.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp">Địa chỉ</span>
+                    </div>
+                </a>
+            </div>
+            <div class="stardust-dropdown">
+                <a class="cate_pro" href="/profile/purchase">
+                    <div class="cate_img">
+                        <img src="~/Uploads/Images/donmua_omg.png" />
+                    </div>
+                    <div class="cate_name">
+                        <span class="cate_name_sp">Đơn mua</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="project_main_content">
+        <div class="content_main" role="main">
+            <div style="display: contents;">
+                <div class="ct_m">
+                    <div class="ct_hd">
+                        <h1 class="hd_ct">Hồ sơ của tôi</h1>
+                        <div class="hd_ad">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="ct_left">
+                        <div class="row">
+                            <div class="col-md-4 esp_ct">
+                                <label>Tên đăng nhập:</label>
+                            </div>
+                            <div class="col-md-8 user_name_cs">
+                                <p style=" color: #000;" name="UserName">@Model.UserName</p>
+                            </div>
+                            <div class="col-md-4 esp_ct" >
+                                <label>Tên:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="Name" value="@Model.Name" style="width:350px">
+                            </div>
+                            <div class="col-md-4 esp_ct">
+                                <label>Giới tính:</label>
+                            </div>
+                            <div class="col-md-8 radioin" name="Gender">
+                                <input type="radio" name="Gender" value="male" @((Model.Gender == "male") ? "checked" : "") /><span class="gender_op">Nam</span>
+                                <input type="radio" name="Gender" value="female" @((Model.Gender == "female") ? "checked" : "") /><span class="gender_op">Nữ</span>
+                                <input type="radio" name="Gender" value="other" @((Model.Gender == "other") ? "checked" : "") /><span class="gender_op">Khác</span>
+                            </div>
+
+                            <div class="col-md-4 esp_ct">
+                                <label>Ngày sinh:</label>
+                            </div>
+                            <div class="col-md-8 ">
+                                <input type="date" name="DateOfBirth" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")"
+                                       min="1980-01-01" max="2018-12-31" class="esp_mi">
+                            </div>
+                            <div class="col-md-4 esp_ct">
+                                <label>Mật khẩu:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" value="*********" class="esp_mi">
+                                <a href="/Account/ForgotPassword" id="ctmk">Cập nhật mật khẩu</a>
+                            </div>
+                            <div class="col-md-10 btnsumit">
+                                <input type="hidden" class="dataidpro" data-id="@Model.UserId" />
+                                <input type="submit" class="btn btn-primary btn-savePro" value="Lưu">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ct_right">
+                        <div class="ct_av">
+                            <div class="user_ava">
+                                <img src="@Model.Image" name="Imagess" id="Imagess" class="ct_right_img" alt="User profile picture">
+                            </div>
+                            <div class="custom-file" style="display: none;">
+                                <input type="hidden" value="Model.Image" name="Image" id="Image" class="LoadImg" />
+                            </div>
+                            <input type="button" class="btn btn-light btn--m btn--inline" value="Chọn ảnh" onclick="BrowseServer('Image','Imagess');" />
+                            <div class="sst">
+                                <p>Dụng lượng file tối đa 1 M</p>
+                                <p>Định dạng:.JPEG, .PNG</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>    
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="~/Content/ckfinder/ckfinder.js"></script>
+ 
+    <script>
+        $(document).ready(function () {
+
+            //profile
+            $('body').on('click', '.btn-savePro', function () {
+                var id = $('.dataidpro').data('id');
+                var Name = $('input[name="Name"]').val();
+                var Gender = $('input[name="Gender"]:checked').val();
+                var DateOfBirth = $('input[name="DateOfBirth"]').val();
+                $.ajax({
+                    url: '/Profile/AddProfile',
+                    type: 'POST',
+                    data: { id: id, Name: Name, Gender: Gender, DateOfBirth: DateOfBirth },
+                    success: function (result) {
+                        location.reload();
+                        // Xử lý kết quả trả về từ server sau khi cập nhật thành công
+                    },
+                    error: function () {
+                        alert('Lỗi khi cập nhật thông tin người dùng');
+                    }
+                });
+            });
+
+
+
+        });
+        function BrowseServer(field, field1) {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                debugger;
+                document.getElementById(field).value = fileUrl;
+                document.getElementById(field1).src = fileUrl;
+                $.ajax({
+                    url: '/Profile/SaveImage',
+                    type: 'POST',
+                    data: { imageUrl: fileUrl },
+                    success: function (res) {
+                        location.reload();
+                    }
+                });
+            };
+            finder.popup();
+        }
+    </script>
+}

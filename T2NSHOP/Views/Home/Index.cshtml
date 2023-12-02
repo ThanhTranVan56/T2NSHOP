@@ -4,19 +4,17 @@
     ViewBag.Title = "Home Page";
 }
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
-@*<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">*@
-@*<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">*@
-@*<link href="~/Content/ProductDetailCss.css" rel="stylesheet" />*@
-<!-- Slider -->
+
 <!-- Banner -->
 <a href="/san-pham">
     <div class="main_slider" style="background-image: url(@SettingHelper.GetValue("SettingBanner")) ">
 
     </div>
 </a>
-
+<!-- MenuProductCategory -->
 
 @Html.Action("MenuProductCategory", "Menu")
+
 <!-- New Arrivals -->
 
 <div class="new_arrivals">
@@ -56,7 +54,7 @@
                         <div class="timer_unit">Sec</div>
                     </li>
                 </ul>
-                <div class="red_button deal_ofthe_week_button"><a href="#">Mua ngay</a></div>
+                <div class="red_button deal_ofthe_week_button"><a href="/san-pham">Mua ngay</a></div>
             </div>
         </div>
     </div>
@@ -117,14 +115,6 @@
 
 @Html.Action("Partial_Subcrice", "Home")
 
-@section scripts{
+@*@section scripts{
     <script src="~/Content/assets/js/single_custom.js"></script>
-    <script>
-        $(document).ready(function () {
-            //ShowModal Hướng dẫn chọn size
-            $('body').on('click', '.btnchonsize', function () {
-                $('#modal-SizeAo').modal('show');
-            });
-        });
-    </script>
-}
+}*@

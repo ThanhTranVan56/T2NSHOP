@@ -71,10 +71,14 @@ $(document).ready(function () {
         document.getElementById('spancolor').textContent = color;
         selectedValues.color = color;
         ShowQuantity(productId, selectedValues.color, selectedValues.size);
+        var headers = {};
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
 
         $.ajax({
             url: '/products/GetSizesByColor',
             type: 'POST',
+            headers: headers,
             data: { color: color, id: id },
             dataType: 'json',
             success: function (response) {

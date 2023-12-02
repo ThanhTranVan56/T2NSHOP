@@ -13,7 +13,7 @@
 
 @if (Model != null)
 {
-    <div class="container single_product_container product-details" data-product-id="@Model.Id">
+    <div class="container single_product_container product-details" data-product-id="@Model.Id" data-title="@Model.ProductCategory.Titel">
         <div class="row">
             <div class="col">
 
@@ -327,14 +327,14 @@
         $(document).ready(function () {
             //ShowModal Hướng dẫn chọn size
             $('body').on('click', '.btnchonsize', function () {
-                var idCategory = $('#idcategoryproduc').data('id');
-                if (idCategory != "10") {
-                    if (idCategory == "9") {
-                        $('#modal-SizeGiay').modal('show');
-                    }
-                    else {
-                        $('#modal-SizeAo').modal('show');
-                    }
+                
+                var titles = $('.product-details').data('title');
+                if (titles.includes("Giày"))
+                {
+                    $('#modal-SizeGiay').modal('show');
+                }
+                else {
+                    $('#modal-SizeAo').modal('show');
                 }
             });
         });

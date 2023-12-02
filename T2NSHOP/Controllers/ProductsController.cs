@@ -93,6 +93,7 @@ namespace T2NSHOP.Controllers
             }
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult GetSizesByColor(string color, int id)
         {
             var sizes = db.ProductAttris.Where(p => p.ProductId == id && p.Alias == color && p.Quantity > 0)

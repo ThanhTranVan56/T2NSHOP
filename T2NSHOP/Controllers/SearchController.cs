@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
@@ -13,6 +10,7 @@ namespace T2NSHOP.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Search
+        [HttpGet]
         public ActionResult Index(string Searchtext)
         {
             if (!string.IsNullOrEmpty(Searchtext))
@@ -23,7 +21,7 @@ namespace T2NSHOP.Controllers
             }
             return View();
         }
-
+        [HttpGet]
         public ActionResult SearchProductCategory(string alias, int id, string Searchtext)
         {
 
@@ -42,16 +40,22 @@ namespace T2NSHOP.Controllers
                     return View(items);
                 }
             }
-            if (id > 0)
+            else
             {
-                var cate = db.ProductCategories.Find(id);
-                if (cate != null)
+                if (id > 0)
                 {
-                    ViewBag.CateName = cate.Titel;
+                    var cate = db.ProductCategories.Find(id);
+                    if (cate != null)
+                    {
+                        ViewBag.CateName = cate.Titel;
+                    }
+                    ViewBag.CateId = id;
+                    return View();
                 }
-                ViewBag.CateId = id;
             }
             return View();
+
+
         }
 
     }

@@ -1,7 +1,5 @@
 ﻿@model T2NSHOP.Models.EF.ProfileCustomer
-@{
-    bool isFirstDefault = true;
-}
+
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
 <link href="~/Content/cssShop/cssProject.css" rel="stylesheet" />
 <div class="project_container">
@@ -27,7 +25,7 @@
             <div class="stardust-dropdown">
                 <a class="cate_pro" href="/profile/index">
                     <div class="cate_img">
-                        <img src="~/Uploads/Images/hoso_img.png" />
+                        <img src="~/Uploads/Images/inshop/hoso_img.png" />
                     </div>
                     <div class="cate_name">
                         <span class="cate_name_sp">Hồ sơ</span>
@@ -37,7 +35,7 @@
             <div class="stardust-dropdown">
                 <a class="cate_pro" href="/profile/address">
                     <div class="cate_img">
-                        <img src="~/Uploads/Images/diachi_img.png" />
+                        <img src="~/Uploads/Images/inshop/diachi_img.png" />
                     </div>
                     <div class="cate_name">
                         <span class="cate_name_sp" id="active">Địa chỉ</span>
@@ -47,7 +45,7 @@
             <div class="stardust-dropdown">
                 <a class="cate_pro" href="/profile/purchase">
                     <div class="cate_img">
-                        <img src="~/Uploads/Images/donmua_omg.png" />
+                        <img src="~/Uploads/Images/inshop/donmua_omg.png" />
                     </div>
                     <div class="cate_name">
                         <span class="cate_name_sp">Đơn mua</span>
@@ -170,9 +168,9 @@
                 <button type="button" class="btn btn-primary" id="btnAdddb">Thêm mới</button>
             </div>
         </div>
-<!-- /.modal-content -->
-</div>
-<!-- /.modal-dialog -->
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <div class="modal fade" id="modal-editAddress">
     <div class="modal-dialog">
@@ -191,19 +189,19 @@
                             <input type="text" name="Phone" id="PhoneEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
                         </div>
                     </div>
-<input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
-<input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
-                    </div>
-
+                    <input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
+                    <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
                 </div>
-    <div class="modal-footer align-self-end">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-        <button type="button" class="btn btn-primary" id="btnEditdb">Cập nhật</button>
+
+            </div>
+            <div class="modal-footer align-self-end">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnEditdb">Cập nhật</button>
+            </div>
+        </div>-->
+        @*/.modal-content*@
     </div>
-            </div>-->
- @*/.modal-content*@ 
-</div>
- @*/.modal-dialog*@ 
+    @*/.modal-dialog*@
 </div>
 
 @section scripts{
@@ -350,7 +348,7 @@
 
             });
         });
-       
+
         document.getElementById('city').addEventListener('change', updateAddressDt);
         document.getElementById('district').addEventListener('change', updateAddressDt);
         document.getElementById('ward').addEventListener('change', updateAddressDt);
@@ -369,7 +367,7 @@
             document.getElementById('AddressDt').value = addressDt;
         }
 
-                    // Hàm xử lý khi có sự thay đổi giá trị
+                        // Hàm xử lý khi có sự thay đổi giá trị
 
     </script>
 }

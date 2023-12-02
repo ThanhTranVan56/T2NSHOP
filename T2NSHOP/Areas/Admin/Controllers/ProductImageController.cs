@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
@@ -22,7 +20,7 @@ namespace T2NSHOP.Areas.Admin.Controllers
                 .ToList();
             ViewBag.colorList = colorList;
             var items = db.ProductImages.Where(x => x.ProductId == id).ToList();
-            if(items != null)
+            if (items != null)
             {
                 return View(items);
             }

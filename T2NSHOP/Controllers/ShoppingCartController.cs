@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
@@ -438,10 +437,10 @@ namespace T2NSHOP.Controllers
                     order.Phone = addProAddress.PhoneNumber;
                     order.Email = addProAddress.Email;
                     order.Address = addProAddress.Address;
-                    if(profile.TypePayment == 1)
+                    if (profile.TypePayment == 1)
                     {
                         order.StatusPayment = 2;
-                    } 
+                    }
                     else
                     {
                         order.StatusPayment = 1;//chưa thanh toán, 2/đã thanh toán ,3/ hoàn thành,4/hủy

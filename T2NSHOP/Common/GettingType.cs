@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace T2NSHOP.Common
+﻿namespace T2NSHOP.Common
 {
     public class GettingType
     {
@@ -15,13 +10,13 @@ namespace T2NSHOP.Common
             }
             else
             {
-                if(key == 2)
+                if (key == 2)
                 {
                     return "Đã thanh toán";
                 }
                 else
                 {
-                    if(key == 3)
+                    if (key == 3)
                     {
                         return "Hoàn thành";
                     }

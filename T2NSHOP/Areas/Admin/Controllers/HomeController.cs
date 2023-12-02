@@ -1,26 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using T2NSHOP.Areas.Admin;
 using T2NSHOP.Models;
 
 namespace T2NSHOP.Areas.Admin.Controllers
 {
-    //[CustomAuthorize(Roles = "Admin,Employee")]
+    [CustomAuthorize(Roles = "Admin,Employee")]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Home
         public ActionResult Index()
         {
-            var auth = HttpContext.User.Identity;
-            Console.WriteLine("Authentication: " + auth.Name);
-            Console.WriteLine("IsAuthenticated: " + auth.IsAuthenticated);
-            Console.WriteLine("AuthenticationType: " + auth.AuthenticationType);
             return View();
         }
 

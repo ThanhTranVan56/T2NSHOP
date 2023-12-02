@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace T2NSHOP.Models
+﻿namespace T2NSHOP.Models
 {
     public class SettingSystemViewModel
     {

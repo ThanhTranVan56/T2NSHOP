@@ -24,7 +24,13 @@
                         }
                         function OnSuccessSub (rs) {
                             if (rs.Success) {
-                                alert("OK");
+                                $(document).Toasts('create', {
+                                    title: 'Thông báo',
+                                    class: 'bg-success',
+                                    autohide: true,
+                                    delay: 750,
+                                    body: 'Đăng ký nhận tin tức thành công.'
+                                });
                             }
                         }
                         function OnFailureSub(rs) {}

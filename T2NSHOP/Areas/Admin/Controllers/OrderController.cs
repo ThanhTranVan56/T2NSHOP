@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
 
 namespace T2NSHOP.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class OrderController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -53,18 +52,19 @@ namespace T2NSHOP.Areas.Admin.Controllers
                 {
                     item.StatusPayment = 3;
                 }
-                else {
+                else
+                {
                     if (trangthai == 4)
                     {
                         item.StatusPayment = 4;
                     }
-                    else 
+                    else
                     {
-                        if(trangthai == 5)
+                        if (trangthai == 5)
                             item.StatusPayment = 5;
                     }
                 }
-                
+
                 item.StatusOrder = trangthai;
                 db.Entry(item).Property(x => x.StatusOrder).IsModified = true;
                 db.Entry(item).Property(x => x.StatusPayment).IsModified = true;

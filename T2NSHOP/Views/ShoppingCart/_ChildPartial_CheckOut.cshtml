@@ -10,7 +10,7 @@
             <div class="col-lg-12" style="border-bottom: 1px solid #dee2e6;">
                 <div class="row" style="margin:10px;">
                     <div>
-                        <input id="radiochecked" type="radio" name="addressRadio"  @if (item.IsDefault) { <text>checked</text> }>
+                        <input class="radiochecked" type="radio" name="addressRadio"  @if (item.IsDefault) { <text>checked</text> }>
                     </div>
                     <div class="col-md-8 addressp">
                         <div>
@@ -28,7 +28,10 @@
             </div>
         }
     </div>
-    <input class="btn-default btn btn-sm btnAddAddressOutChild" value="Thêm mới địa chỉ">
+    <div style="padding-bottom: 10px; padding-top: 10px;">
+        <input class="btn-default btn btn-sm" id="btnAddAddressOutChild" value="Thêm mới địa chỉ">
+    </div>
+    
 </div>
     
 }

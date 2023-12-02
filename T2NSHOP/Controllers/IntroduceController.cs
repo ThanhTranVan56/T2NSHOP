@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 
@@ -14,7 +11,7 @@ namespace T2NSHOP.Controllers
         public ActionResult Index()
         {
             var item = db.Posts.First();
-            if(item != null)
+            if (item != null)
             {
                 return View(item);
             }

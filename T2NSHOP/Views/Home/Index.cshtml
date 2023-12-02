@@ -1,4 +1,6 @@
-﻿@{
+﻿@using T2NSHOP.Common
+@using T2NSHOP.Models;
+@{
     ViewBag.Title = "Home Page";
 }
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
@@ -7,7 +9,7 @@
 @*<link href="~/Content/ProductDetailCss.css" rel="stylesheet" />*@
 <!-- Slider -->
 <a href="/san-pham">
-    <div class="main_slider" style="background-image: url(Uploads/images/banner1.jpg) ">
+    <div class="main_slider" style="background-image: url(@SettingHelper.GetValue("SettingLogo")) ">
 
     </div>
 </a>
@@ -27,8 +29,7 @@
     <div class="row align-items-center">
         <div class="col-lg-6">
             <div class="deal_ofthe_week_img">
-
-                <img src="~/Uploads/images/superSale.jpg" />
+                <img src="~/Uploads/Images/inshop/superSale.jpg" />
             </div>
         </div>
         <div class="col-lg-6 text-right deal_ofthe_week_col">

@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.Facebook;
+using Microsoft.Owin.Security.Google;
 using Owin;
+using System;
 using T2NSHOP.Models;
 
 namespace T2NSHOP
@@ -35,7 +35,7 @@ namespace T2NSHOP
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -55,11 +55,12 @@ namespace T2NSHOP
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(new FacebookAuthenticationOptions() {
-                AppId =  "1557512471453206",
+            app.UseFacebookAuthentication(new FacebookAuthenticationOptions()
+            {
+                AppId = "1557512471453206",
                 AppSecret = "3809a996aa44c2e745c55e19e05bda60"
             });
-               
+
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

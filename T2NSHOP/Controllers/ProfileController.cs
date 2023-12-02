@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
+using static T2NSHOP.FilterConfig;
 
 namespace T2NSHOP.Controllers
 {
@@ -73,15 +74,21 @@ namespace T2NSHOP.Controllers
         }
 
         [HttpPost]
+
         public ActionResult AddProfile(string id, string Name, string Gender, DateTime DateOfBirth)
         {
             var checkpro = db.ProfileCustomers.FirstOrDefault(x => x.UserId == id);
-            checkpro.Name = Name;
-            checkpro.Gender = Gender;
-            checkpro.DateOfBirth = DateOfBirth;
-            db.Entry(checkpro).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return View("Partial_Profile");
+            if (checkpro != null)
+            {
+                checkpro.UserName = Name;
+                checkpro.Gender = Gender;
+                checkpro.DateOfBirth = DateOfBirth;
+                db.Entry(checkpro).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { Success = true });
+            }
+            return Json(new { Success = false });
+
         }
         [HttpPost]
         public ActionResult SaveImage(string imageUrl)
@@ -98,6 +105,7 @@ namespace T2NSHOP.Controllers
             return Json(new { Success = false });
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult UpdateIsDefual(int id)
         {
             if (id != 0)
@@ -119,6 +127,7 @@ namespace T2NSHOP.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult AddAddress(string Id, string Name, string Phone, string Address, string AddressDt)
         {
             var iuser = User.Identity.GetUserId();
@@ -142,7 +151,6 @@ namespace T2NSHOP.Controllers
                     });
                     db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                    PartialView("_ChildPartial_ProfileAddress");
                     return Json(new { message = "Success", Success = true });
                 }
                 else
@@ -161,14 +169,13 @@ namespace T2NSHOP.Controllers
                     });
                     db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                    PartialView("_ChildPartial_ProfileAddress");
                     return Json(new { message = "Success", Success = true });
                 }
-
             }
             return Json(new { message = "UnSuccess", Success = false });
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult UploadPayment(int TypePayment, int id)
         {
             var item = db.ProfileCustomers.FirstOrDefault(x => x.Id == id);
@@ -184,6 +191,7 @@ namespace T2NSHOP.Controllers
 
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult UploadPaymentVN(int TypePaymenVN, int id)
         {
             var item = db.ProfileCustomers.FirstOrDefault(x => x.Id == id);
@@ -220,6 +228,7 @@ namespace T2NSHOP.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult EditAddress(int Id, string Name, string Phone, string AddressDt)
         {
             var address = db.AddressCustomers.FirstOrDefault(x => x.Id == Id);

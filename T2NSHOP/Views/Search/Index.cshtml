@@ -50,6 +50,7 @@
 
                             @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { }))
                             {
+                                @Html.AntiForgeryToken()
                                 <form class="form-inline">
                                     <div class="input-group input-group-sm">
                                         <input class="form-control form-control-navbar" id="searchdb" style="min-width: 400px; max-width: 400px; border-color: #80bdff" type="text" name="Searchtext" placeholder="Search">

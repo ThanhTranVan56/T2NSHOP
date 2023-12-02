@@ -187,6 +187,7 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingSystemController.cs" />
     <Compile Include="Areas\Admin\Controllers\StatisticalController.cs" />
+    <Compile Include="Areas\Admin\CustomAuthorizeAttribute.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\Filter.cs" />
     <Compile Include="Common\GettingType.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\PromotionController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
@@ -227,6 +229,14 @@
     <Compile Include="Migrations\202311251852245_add_CustomerIDinOrder.Designer.cs">
       <DependentUpon>202311251852245_add_CustomerIDinOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312011410561_addReviewProduct.cs" />
+    <Compile Include="Migrations\202312011410561_addReviewProduct.Designer.cs">
+      <DependentUpon>202312011410561_addReviewProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312011415185_edit_reviewProduct.cs" />
+    <Compile Include="Migrations\202312011415185_edit_reviewProduct.Designer.cs">
+      <DependentUpon>202312011415185_edit_reviewProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -243,6 +253,7 @@
     <Compile Include="Models\EF\ProductCategory.cs" />
     <Compile Include="Models\EF\ProductImage.cs" />
     <Compile Include="Models\EF\ProfileCustomer.cs" />
+    <Compile Include="Models\EF\ReviewProduct.cs" />
     <Compile Include="Models\EF\ShoppingCart.cs" />
     <Compile Include="Models\EF\Subscribe.cs" />
     <Compile Include="Models\EF\SystemSetting.cs" />
@@ -257,34 +268,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\assets\images\banner_1.jpg" />
-    <Content Include="Content\assets\images\banner_2.jpg" />
-    <Content Include="Content\assets\images\banner_3.jpg" />
-    <Content Include="Content\assets\images\blog_1.jpg" />
-    <Content Include="Content\assets\images\blog_2.jpg" />
-    <Content Include="Content\assets\images\blog_3.jpg" />
-    <Content Include="Content\assets\images\deal_ofthe_week.png" />
-    <Content Include="Content\assets\images\desc_1.jpg" />
-    <Content Include="Content\assets\images\desc_2.jpg" />
-    <Content Include="Content\assets\images\desc_3.jpg" />
-    <Content Include="Content\assets\images\map_marker.png" />
-    <Content Include="Content\assets\images\product_1.png" />
-    <Content Include="Content\assets\images\product_10.png" />
-    <Content Include="Content\assets\images\product_2.png" />
-    <Content Include="Content\assets\images\product_3.png" />
-    <Content Include="Content\assets\images\product_4.png" />
-    <Content Include="Content\assets\images\product_5.png" />
-    <Content Include="Content\assets\images\product_6.png" />
-    <Content Include="Content\assets\images\product_7.png" />
-    <Content Include="Content\assets\images\product_8.png" />
-    <Content Include="Content\assets\images\product_9.png" />
-    <Content Include="Content\assets\images\single_1.jpg" />
-    <Content Include="Content\assets\images\single_1_thumb.jpg" />
-    <Content Include="Content\assets\images\single_2.jpg" />
-    <Content Include="Content\assets\images\single_2_thumb.jpg" />
-    <Content Include="Content\assets\images\single_3.jpg" />
-    <Content Include="Content\assets\images\single_3_thumb.jpg" />
-    <Content Include="Content\assets\images\slider_1.jpg" />
     <Content Include="Content\assets\js\categories_custom.js" />
     <Content Include="Content\assets\js\contact_custom.js" />
     <Content Include="Content\assets\js\custom.js" />
@@ -5445,22 +5428,77 @@
     <Content Include="Scripts\jsShop\detailProduct.js" />
     <Content Include="Scripts\jsShop\shoppingCart.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Uploads\Images\banner1.jpg" />
-    <Content Include="Uploads\Images\defauft-avatar.png" />
-    <Content Include="Uploads\Images\diachi_img.png" />
-    <Content Include="Uploads\Images\donmua_omg.png" />
-    <Content Include="Uploads\Images\hoso_img.png" />
-    <Content Include="Uploads\Images\icon_Facebook.png" />
-    <Content Include="Uploads\Images\icon_Google.png" />
+    <Content Include="Uploads\Images\category_product\iconAoCLB1.jpg" />
+    <Content Include="Uploads\Images\category_product\iconAoDaiTay.jpg" />
+    <Content Include="Uploads\Images\category_product\iconAOdt.jpg" />
+    <Content Include="Uploads\Images\category_product\iconAoKLogo.jpg" />
+    <Content Include="Uploads\Images\category_product\iconbongda.jpg" />
+    <Content Include="Uploads\Images\category_product\iconGiay.jpg" />
+    <Content Include="Uploads\Images\inshop\banner1.jpg" />
+    <Content Include="Uploads\Images\inshop\defauft-avatar.png" />
+    <Content Include="Uploads\Images\inshop\diachi_img.png" />
+    <Content Include="Uploads\Images\inshop\donmua_omg.png" />
+    <Content Include="Uploads\Images\inshop\hoso_img.png" />
+    <Content Include="Uploads\Images\inshop\icon_Facebook.png" />
+    <Content Include="Uploads\Images\inshop\icon_Google.png" />
+    <Content Include="Uploads\Images\inshop\thanhtoan.png" />
+    <Content Include="Uploads\Images\inshop\vanchuyen.png" />
     <Content Include="Uploads\Images\news\1.png" />
     <Content Include="Uploads\Images\news\2.png" />
     <Content Include="Uploads\Images\news\3.png" />
     <Content Include="Uploads\Images\news\4.png" />
     <Content Include="Uploads\Images\news\5.png" />
+    <Content Include="Uploads\Images\news\argentina-tintuc.jpeg" />
+    <Content Include="Uploads\Images\news\argentina.png" />
     <Content Include="Uploads\Images\news\kim.png" />
     <Content Include="Uploads\Images\news\MU.png" />
-    <Content Include="Uploads\Images\roo2.jpg" />
-    <Content Include="Uploads\Images\superSale.jpg" />
+    <Content Include="Uploads\Images\product\Anh1.png" />
+    <Content Include="Uploads\Images\product\Anh2.png" />
+    <Content Include="Uploads\Images\product\Anh3.png" />
+    <Content Include="Uploads\Images\product\argentina1.png" />
+    <Content Include="Uploads\Images\product\argentina2.png" />
+    <Content Include="Uploads\Images\product\argentina3.png" />
+    <Content Include="Uploads\Images\product\argentina4.png" />
+    <Content Include="Uploads\Images\product\barca1.png" />
+    <Content Include="Uploads\Images\product\barca2.png" />
+    <Content Include="Uploads\Images\product\barca3.png" />
+    <Content Include="Uploads\Images\product\barca4.png" />
+    <Content Include="Uploads\Images\product\dortmund1.png" />
+    <Content Include="Uploads\Images\product\dortmund2.png" />
+    <Content Include="Uploads\Images\product\dortmund3.png" />
+    <Content Include="Uploads\Images\product\dortmund4.png" />
+    <Content Include="Uploads\Images\product\Giày đá bóng WIKA Galaxy màu Bạc chính hãng.png" />
+    <Content Include="Uploads\Images\product\Giày đá bóng WIKA Galaxy màu Xanh chính hãng.png" />
+    <Content Include="Uploads\Images\product\Giày đá bóng WIKA Galaxy màu Đen chính hãng.png" />
+    <Content Include="Uploads\Images\product\Giày đá bóng WIKA Winer màu Xanh dương chính hãng.png" />
+    <Content Include="Uploads\Images\product\Giày đá bóng WIKA Winer màu Xanh ngọc chính hãng.png" />
+    <Content Include="Uploads\Images\product\hàn quốc1.png" />
+    <Content Include="Uploads\Images\product\hàn quốc2.png" />
+    <Content Include="Uploads\Images\product\hàn quốc3.png" />
+    <Content Include="Uploads\Images\product\hàn quốc4.png" />
+    <Content Include="Uploads\Images\product\PSG1.png" />
+    <Content Include="Uploads\Images\product\PSG2-clb-blue.png" />
+    <Content Include="Uploads\Images\product\real1.png" />
+    <Content Include="Uploads\Images\product\real2.png" />
+    <Content Include="Uploads\Images\product\real3.png" />
+    <Content Include="Uploads\Images\product\real4.png" />
+    <Content Include="Uploads\Images\product\real5.png" />
+    <Content Include="Uploads\Images\product\Việt Nam1.png" />
+    <Content Include="Uploads\Images\product\Việt Nam2.png" />
+    <Content Include="Uploads\Images\product\Việt Nam3.png" />
+    <Content Include="Uploads\Images\product\Việt Nam4.png" />
+    <Content Include="Uploads\Images\product\Việt Nam5.png" />
+    <Content Include="Uploads\Images\product\Áo bóng đá Barca dài tay 2018 Sân khách.png" />
+    <Content Include="Uploads\Images\product\Áo bóng đá dài tay Barca 2018 Sân nhà.png" />
+    <Content Include="Uploads\Images\product\Áo bóng đá Real Madrid tay dài 2018 Sân khách.png" />
+    <Content Include="Uploads\Images\product\Áo Traning không logo màu trắng.png" />
+    <Content Include="Uploads\Images\product\Áo Traning không logo màu vàng.png" />
+    <Content Include="Uploads\Images\product\Áo Traning không logo màu xanh trắng.png" />
+    <Content Include="Uploads\Images\product\Áo Traning không logo màu xanh vàng.png" />
+    <Content Include="Uploads\Images\product\Áo Traning không logo màu xanh đỏ.png" />
+    <Content Include="Uploads\Images\product\Áo Traning không logo màu đỏ trắng.png" />
+    <Content Include="Uploads\Images\product\Áo đá banh dài tay Real Madrid 2015-2016 xám.png" />
+    <Content Include="Uploads\Images\inshop\superSale.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5472,8 +5510,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -5521,7 +5557,6 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Introduce\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Profile\_ChildPartial_ProfileAddress.cshtml" />
     <Content Include="Views\Promotion\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\SearchProductCategory.cshtml" />
@@ -5540,12 +5575,13 @@
     <Content Include="Views\Profile\Purchase.cshtml" />
     <Content Include="Views\Profile\Partial_List_Order.cshtml" />
     <Content Include="Views\Profile\Partial_Item_OrderDetail.cshtml" />
+    <Content Include="Views\Review\Partial_Review.cshtml" />
+    <Content Include="Views\Review\Partial_Load_Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\ckfinder\userfiles\" />
-    <Folder Include="Uploads\Images\product\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -5567,6 +5603,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311251852245_add_CustomerIDinOrder.resx">
       <DependentUpon>202311251852245_add_CustomerIDinOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312011410561_addReviewProduct.resx">
+      <DependentUpon>202312011410561_addReviewProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312011415185_edit_reviewProduct.resx">
+      <DependentUpon>202312011415185_edit_reviewProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

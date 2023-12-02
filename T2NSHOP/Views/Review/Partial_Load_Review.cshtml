@@ -1,0 +1,75 @@
+﻿@model IEnumerable<T2NSHOP.Models.EF.ReviewProduct>
+
+<style>
+    .review_container {
+        max-height: 500px; 
+        overflow-y: auto; 
+        padding: 10px; 
+    }
+
+    .review_container::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .review_container::-webkit-scrollbar-track {
+        background-color: #f5f5f5; 
+    }
+
+    .review_container::-webkit-scrollbar-thumb {
+        background-color: #888; 
+        border-radius: 4px; 
+    }
+
+    .review_container::-webkit-scrollbar-thumb:hover {
+        background-color: #555; 
+    }
+    .review_content {
+        margin-top:-15px;
+        word-break: break-all;
+    }
+    .user_pic > img {
+        width: 100%;
+        height: auto;
+    }
+   
+</style>
+<div class="tab_title reviews_title">
+    <h4>Reviews (@ViewBag.Count)</h4>
+</div>
+
+<div class="review_container">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="user_review_container d-flex flex-column flex-sm-row">
+                <div class="user">
+                    <div class="user_pic">
+                        @if (item.Avata != null)
+                        {
+                            <img src="@item.Avata" />
+                        }
+                        else
+                        {
+                            <img src="~/Uploads/Images/inshop/defauft-avatar.png" />
+                        }
+                    </div>
+                    <div class="user_rating">
+                        <ul class="star_rating">
+                            @Html.Raw(T2NSHOP.Common.Common.HtmlRate(item.Rate))
+                        </ul>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review_date">@item.Createdate.ToString("MM/dd/yyyy h:mm tt")</div>
+                    <div class="user_name">@item.UserName</div>
+                    <p class="review_content">@item.Content</p>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+
+
+

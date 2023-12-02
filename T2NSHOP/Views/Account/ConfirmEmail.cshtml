@@ -1,10 +1,10 @@
 ﻿@{
     ViewBag.Title = "Confirm Email";
 }
-
-<h2>@ViewBag.Title.</h2>
-<div>
-    <p>
-        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-    </p>
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<h2 style="padding-top:160px;">@ViewBag.Title.</h2>
+<div style="padding-bottom:400px;padding-left:50px;font-size:18px;">
+    <span>
+        Cảm ơn bạn đã xác nhận email của bạn. Vui lòng @Html.ActionLink("Click vào đây để đăng nhập", "Index", "Home")
+    </span>
 </div>

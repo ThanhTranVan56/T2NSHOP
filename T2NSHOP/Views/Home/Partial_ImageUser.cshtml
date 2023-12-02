@@ -18,14 +18,13 @@ else
             <img src="@ViewBag.Image" id="UserImage" class="img-circle elevation-2" alt="User Image" style="width: 1.5rem; height:1.3rem">
         }
         else
-        { <span>Welcome</span>}
+        {
+            <img src="~/Uploads/Images/inshop/defauft-avatar.png" id="UserImage" class="img-circle elevation-2" alt="User Image" style="width: 1.5rem; height:1.3rem"/>
+        }
         @if (ViewBag.Name != null)
         {
             @ViewBag.Name
         }
-        else
-        {@User.Identity.Name}
-
         <i class="fa fa-angle-down"></i>
     </a>
     <ul class="account_selection">

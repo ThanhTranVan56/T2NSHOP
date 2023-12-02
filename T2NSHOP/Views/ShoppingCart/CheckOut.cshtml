@@ -45,7 +45,6 @@
                     <div class="col-12">
                         @Html.Action("Partial_CheckOut", "Shoppingcart")
                     </div>
-
                 </div>
             }
             else
@@ -76,41 +75,45 @@
 <div class="modal fade" id="modal-addAddressOut" data-id="@ViewBag.IdUser">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
-                <div class="" style="margin:25px 20px 20px ">
-                    <h4>Địa chỉ mới</h4>
-                    <div class=" row">
-                        <div class="col-md-6">
-                            <input type="text" name="NameAdd" id="NameAdd" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+
+                    <div class="" style="margin:25px 20px 20px ">
+                        <h4>Địa chỉ mới</h4>
+                        <div class=" row">
+                            <div class="col-md-6">
+                                <input type="text" name="NameAdd" id="NameAdd" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="Phone" id="Phone" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" name="Phone" id="Phone" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+
+                        <div>
+                            <select class="form-select form-select-sm mb-3" id="city" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn tỉnh thành</option>
+                            </select>
+
+                            <select class="form-select form-select-sm mb-3" id="district" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn quận huyện</option>
+                            </select>
+
+                            <select class="form-select form-select-sm" id="ward" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn phường xã</option>
+                            </select>
                         </div>
+                        <input type="text" name="Address" id="Address" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
+                        <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
                     </div>
-
-                    <div>
-                        <select class="form-select form-select-sm mb-3" id="city" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
-                            <option value="" selected>Chọn tỉnh thành</option>
-                        </select>
-
-                        <select class="form-select form-select-sm mb-3" id="district" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
-                            <option value="" selected>Chọn quận huyện</option>
-                        </select>
-
-                        <select class="form-select form-select-sm" id="ward" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
-                            <option value="" selected>Chọn phường xã</option>
-                        </select>
-                    </div>
-                    <input type="text" name="Address" id="Address" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
-                    <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
                 </div>
-
+                <div class="modal-footer align-self-end">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="btnAdddbOut">Thêm mới</button>
+                </div>
+            }
             </div>
-            <div class="modal-footer align-self-end">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="btnAdddbOut">Thêm mới</button>
-            </div>
-        </div>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
@@ -118,31 +121,35 @@
 <div class="modal fade" id="modal-editAddressOut">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
-                <div class="" style="margin:25px 20px 20px ">
-                    <h4>Địa chỉ</h4>
-                    <div style="display:none">
-                        <input type="text" name="IdAdd" id="IdAdd" value="" />
-                    </div>
-                    <div class=" row">
-                        <div class="col-md-6">
-                            <input type="text" name="NameAdd" id="NameEdit" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                    <div class="" style="margin:25px 20px 20px ">
+                        <h4>Địa chỉ</h4>
+                        <div style="display:none">
+                            <input type="text" name="IdAdd" id="IdAdd" value="" />
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" name="Phone" id="PhoneEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                        <div class=" row">
+                            <div class="col-md-6">
+                                <input type="text" name="NameAdd" id="NameEdit" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="Phone" id="PhoneEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                            </div>
                         </div>
-                    </div>
 
 
-                    <input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
-                    <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                        <input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
+                        <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                    </div>
+
                 </div>
-
-            </div>
-            <div class="modal-footer align-self-end">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="btnEditdbOut">Cập nhật</button>
-            </div>
+                <div class="modal-footer align-self-end">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="btnEditdbOut">Cập nhật</button>
+                </div>
+            }
         </div>
         <!-- /.modal-content -->
     </div>
@@ -219,10 +226,14 @@
             }
         }
         $(document).ready(function () {
+            var headers = {};
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            headers['__RequestVerificationToken'] = token;
             var idss = $('#drTypePayment').data('id');
             $.ajax({
                 url: '/Profile/UploadPayment',
                 type: 'POST',
+                headers: headers,
                 data: { TypePayment: 1, id: idss },
                 success: function (rs) {
                     if (rs.Success) {
@@ -239,12 +250,15 @@
                 }
             });
             $('#drTypePayment').on('change', function () {
-                debugger;
+                var headers = {};
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                headers['__RequestVerificationToken'] = token;
                 var id = $('#drTypePayment').data('id');
                 var typePayment = $(this).val();
                 $.ajax({
                     url: '/Profile/UploadPayment',
                     type: 'POST',
+                    headers: headers,
                     data: { TypePayment: typePayment, id: id },
                     success: function (rs) {
                         if (rs.Success) {
@@ -256,11 +270,15 @@
                 });
             });
             $('input[name=TypePaymenVN]').on('change', function () {
+                var headers = {};
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                headers['__RequestVerificationToken'] = token;
                 var id = $('#drTypePayment').data('id');
                 var typePaymenVN = $('input[name=TypePaymenVN]:checked').val();
                 $.ajax({
                     url: '/Profile/UploadPaymentVN',
                     type: 'POST',
+                    headers: headers,
                     data: { TypePaymenVN: typePaymenVN, id: id },
                     success: function (rs) {
                         if (rs.Success) {
@@ -276,12 +294,11 @@
                 $('#modal-ListAddressOut').modal('show');
             });
 
-            $('body').on('click', '.btnAddAddressOutChild', function () {
+            $('body').on('click', '#btnAddAddressOutChild', function () {
                 $('#modal-addAddressOut').modal('show');
             });
 
             $('body').on('click', '.btnEditAddressOutChild', function () {
-
                 var id = $(this).data('id');
                 $.ajax({
                     url: '/Profile/LoadAddress',
@@ -298,13 +315,18 @@
                 });
             });
             $('body').on('click', '#btnAdddbOut', function () {
+                var headers = {};
+                var token = $('#modal-addAddress input[name="__RequestVerificationToken"]').val();
+                headers['__RequestVerificationToken'] = token;
                 var UId = $("#modal-addAddress").data("id");
                 var Name = $('#NameAdd').val();
                 var Phone = $('#Phone').val();
                 var Address = $('#Address').val();
                 var AddressDt = $('#AddressDt').val();
+                /*alert(token);*/
                 $.ajax({
                     url: '/Profile/AddAddress',
+                    headers: headers,
                     type: 'POST',
                     data: { Id: UId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
                     success: function (res) {
@@ -315,14 +337,19 @@
                 });
             });
             $('body').on('click', '#btnEditdbOut', function () {
+                var headers = {};
+                var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+                headers['__RequestVerificationToken'] = token;
                 var AId = $('#IdAdd').val();
                 var Name = $('#NameEdit').val();
                 var Phone = $('#PhoneEdit').val();
                 var Address = $('#AddressEdit').val();
                 var AddressDt = $('#AddressDtEdit').val();
+                /*alert(token);*/
                 $.ajax({
                     url: '/Profile/EditAddress',
                     type: 'POST',
+                    headers: headers,
                     data: { Id: AId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
                     success: function (res) {
                         if (res.Success) {
@@ -332,6 +359,9 @@
                 });
             });
             $('body').on('click', '.btnIsDefualtAddress', function () {
+                var headers = {};
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                headers['__RequestVerificationToken'] = token;
                 var id = $(this).data('id');
                 var valueIs = $(this).data('value');
                 if (valueIs == "True") {
@@ -341,6 +371,7 @@
                     $.ajax({
                         url: '/Profile/UpdateIsDefual',
                         type: 'POST',
+                        headers: headers,
                         data: { id: id },
                         success: function (res) {
                             if (res.Success) {

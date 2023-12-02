@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace T2NSHOP.Common
+﻿namespace T2NSHOP.Common
 {
     public class Filter
     {
+#pragma warning disable CS0414 // The field 'Filter.strCheck' is assigned but its value is never used
         private static readonly string strCheck = "áàạảãâấầậẩẫăắằặẳẵÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴéèẹẻẽêếềệểễÉÈẸẺẼÊẾỀỆỂỄ" +
+#pragma warning restore CS0414 // The field 'Filter.strCheck' is assigned but its value is never used
             "óòọỏõôốồộổỗơớờợởỡÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠúùụủũưứừựửữÚÙỤỦŨƯỨỪỰỬỮíìịỉĩÍÌỊỈĨđĐýỳỵỷỹÝỲỴỶỸ~!@#$%^&*()-[{]}|\\/'\"\\.,><;:";
 
         private static readonly string[] VietNamChar = new string[]

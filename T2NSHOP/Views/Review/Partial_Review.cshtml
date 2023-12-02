@@ -1,0 +1,73 @@
+﻿@model T2NSHOP.Models.EF.ReviewProduct
+
+
+<div class="add_review">
+    @using (Ajax.BeginForm("PostReview", "Review", new AjaxOptions
+    {
+
+        HttpMethod = "POST",
+        UpdateTargetId = "load_review",
+        OnBegin = "OnBeginRE",
+        OnSuccess = "OnSuccessRE",
+        OnFailure = "OnFailureRE"
+
+    }, new { @Id = "review_form" }))
+    {
+        <script>
+            function OnBeginRE() {
+               
+            }
+            function OnSuccessRE(res) {
+                if (res.Success) {
+                    $(document).Toasts('create', {
+                        title: 'Thông báo',
+                        class: 'bg-success',
+                        autohide: true,
+                        delay: 750,
+                        body: 'Đánh giá sản phẩm thành công'
+                    });
+                    $('#review_form')[0].reset();
+                } else {
+                    $(document).Toasts('create', {
+                        title: 'Thông báo',
+                        class: 'bg-danger',
+                        autohide: true,
+                        delay: 750,
+                        body: 'Có lỗi xảy qua trong quá trình đánh giá, vui lòng thử lại sau'
+                    });
+                }
+            }
+            function OnFailureRE() {
+                $(document).Toasts('create', {
+                    title: 'Thông báo',
+                    class: 'bg-danger',
+                    autohide: true,
+                    delay: 750,
+                    body: 'Có lỗi xảy qua trong quá trình đánh giá, vui lòng thử lại sau'
+                });
+            }
+        </script>
+        @Html.AntiForgeryToken()
+        <div>
+            <h1>Đánh giá</h1>
+            @Html.TextBoxFor(x=>x.UserName, new {@class = "form_input input_name", @placeholder = "Name", @id = "review_name"})
+            @Html.TextBoxFor(x=>x.Email, new {@class = "form_input input_email", @placeholder = "Email", @id = "review_email" })
+            @Html.HiddenFor(x=>x.ProductId, new {@value = ViewBag.ProductId})
+       </div>
+        <div>
+            <h1>Đánh giá của bạn:</h1>
+            <ul class="user_star_rating">
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+            </ul>
+            @Html.TextAreaFor(x => x.Content, new { @class = "input_review", @rows = "4", @placeholder = "...." })
+        </div>
+        <div class="text-left text-sm-right">
+            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">Gửi</button>
+        </div>
+    }
+</div>
+

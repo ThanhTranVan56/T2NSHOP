@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace T2NSHOP.Models
 {
@@ -23,7 +19,9 @@ namespace T2NSHOP.Models
             {
                 var roleresult = roleManager.Create(new IdentityRole("Admin"));
             }
+#pragma warning disable CS0219 // The variable 'userName' is assigned but its value is never used
             string userName = "Admin";
+#pragma warning restore CS0219 // The variable 'userName' is assigned but its value is never used
             string email = "Admin@gmail.com";
             string password = "Abc@123";
             ApplicationUser user = userManager.FindByName(email);

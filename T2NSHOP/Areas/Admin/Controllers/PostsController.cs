@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
 
 namespace T2NSHOP.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin,Employee")]
+    [Authorize(Roles = "Admin,Employee")]
     public class PostsController : Controller
     {
         // GET: Admin/Posts

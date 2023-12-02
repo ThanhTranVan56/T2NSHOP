@@ -167,9 +167,14 @@ $(document).ready(function () {
 });
 
 function ShowQuantity(id, color, size) {
+    debugger;
+    var headers = {};
+    var token = $('input[name="__RequestVerificationToken"]').val();
+    headers['__RequestVerificationToken'] = token;
     $.ajax({
         url: '/products/ShowQuantity',
         type: 'POST',
+        headers: headers,
         data: { id: id, color: color, size: size },
         dataType: 'json',
         success: function (rs) {

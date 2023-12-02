@@ -3,7 +3,7 @@
 @using (Ajax.BeginForm("AddSetting", "SettingSystem", new AjaxOptions
 {
     OnBegin = "OnBegin",
-    OnSuccess = "OnSuccess",
+    OnComplete = "OnSuccess",
     OnFailure = "OnFailure"
 }))
 {

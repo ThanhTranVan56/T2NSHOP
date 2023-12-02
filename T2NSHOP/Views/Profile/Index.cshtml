@@ -13,7 +13,7 @@
                     }
                     else
                     {
-                        <img src="~/Uploads/Images/defauft-avatar.png" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
+                        <img src="~/Uploads/Images/inshop/defauft-avatar.png" name="Imagess" id="Imagess" class="img_u" alt="Avata" style="width: 3rem;height:2.8rem">
                     }
                 </div>
             </a>
@@ -25,7 +25,7 @@
             <div class="stardust-dropdown">
                 <a class="cate_pro" href="/profile/index">
                     <div class="cate_img">
-                        <img src="~/Uploads/Images/hoso_img.png" />
+                        <img src="~/Uploads/Images/inshop/hoso_img.png" />
                     </div>
                     <div class="cate_name">
                         <span class="cate_name_sp" id="active">Hồ sơ</span>
@@ -35,7 +35,7 @@
             <div class="stardust-dropdown">
                 <a class="cate_pro" href="/profile/address">
                     <div class="cate_img">
-                        <img src="~/Uploads/Images/diachi_img.png" />
+                        <img src="~/Uploads/Images/inshop/diachi_img.png" />
                     </div>
                     <div class="cate_name">
                         <span class="cate_name_sp">Địa chỉ</span>
@@ -45,7 +45,7 @@
             <div class="stardust-dropdown">
                 <a class="cate_pro" href="/profile/purchase">
                     <div class="cate_img">
-                        <img src="~/Uploads/Images/donmua_omg.png" />
+                        <img src="~/Uploads/Images/inshop/donmua_omg.png" />
                     </div>
                     <div class="cate_name">
                         <span class="cate_name_sp">Đơn mua</span>
@@ -67,17 +67,17 @@
                 <div class="content">
                     <div class="ct_left">
                         <div class="row">
-                            <div class="col-md-4 esp_ct">
+                            @*<div class="col-md-4 esp_ct">
                                 <label>Tên đăng nhập:</label>
                             </div>
                             <div class="col-md-8 user_name_cs">
                                 <p style=" color: #000;" name="UserName">@Model.UserName</p>
-                            </div>
+                            </div>*@
                             <div class="col-md-4 esp_ct" >
-                                <label>Tên:</label>
+                                <label>Tên Hiển thị:</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="Name" value="@Model.Name" style="width:350px">
+                                <input type="text" name="Name" value="@Model.UserName" style="width:350px">
                             </div>
                             <div class="col-md-4 esp_ct">
                                 <label>Giới tính:</label>
@@ -111,7 +111,15 @@
                     <div class="ct_right">
                         <div class="ct_av">
                             <div class="user_ava">
-                                <img src="@Model.Image" name="Imagess" id="Imagess" class="ct_right_img" alt="User profile picture">
+                                @if (Model.Image != null)
+                                {
+                                    <img src="@Model.Image" name="Imagess" id="Imagess" class="ct_right_img" alt="User profile picture">
+                                }
+                                else
+                                {
+                                    <img src="~/Uploads/Images/inshop/defauft-avatar.png" name="Imagess" id="Imagess" class="ct_right_img" alt="User profile picture">
+                                }
+
                             </div>
                             <div class="custom-file" style="display: none;">
                                 <input type="hidden" value="Model.Image" name="Image" id="Image" class="LoadImg" />
@@ -144,13 +152,22 @@
                 var Name = $('input[name="Name"]').val();
                 var Gender = $('input[name="Gender"]:checked').val();
                 var DateOfBirth = $('input[name="DateOfBirth"]').val();
+                if (Name.trim() === '') {
+                    $(document).Toasts('create', {
+                        title: 'Thông báo',
+                        class: 'bg-danger',
+                        autohide: true,
+                        delay: 1300,
+                        body: 'Bạn không được để trống tên hiển thị!'
+                    });
+                    return; 
+                }
                 $.ajax({
                     url: '/Profile/AddProfile',
                     type: 'POST',
                     data: { id: id, Name: Name, Gender: Gender, DateOfBirth: DateOfBirth },
                     success: function (result) {
                         location.reload();
-                        // Xử lý kết quả trả về từ server sau khi cập nhật thành công
                     },
                     error: function () {
                         alert('Lỗi khi cập nhật thông tin người dùng');

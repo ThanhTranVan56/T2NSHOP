@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using T2NSHOP.Models;
+using static T2NSHOP.FilterConfig;
 
 namespace T2NSHOP.Controllers
 {
@@ -63,6 +61,8 @@ namespace T2NSHOP.Controllers
             return PartialView(items);
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
+
         public ActionResult ShowQuantity(int id, string color, string size)
         {
             if (color == "" && size == "")
@@ -128,5 +128,7 @@ namespace T2NSHOP.Controllers
             var items = db.Products.Where(x => x.IsSale && x.IsActive).Take(12).ToList();
             return PartialView(items);
         }
+
+
     }
 }

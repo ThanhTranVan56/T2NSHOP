@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using T2NSHOP.Models.EF;
 
 namespace T2NSHOP.Models
@@ -47,7 +47,7 @@ namespace T2NSHOP.Models
         public DbSet<ShoppingCart> shoppingCarts { get; set; }
         public DbSet<ProfileCustomer> ProfileCustomers { get; set; }
         public DbSet<AddressCustomer> AddressCustomers { get; set; }
-
+        public DbSet<ReviewProduct> ReviewProducts { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

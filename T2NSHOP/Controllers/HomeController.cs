@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
@@ -27,10 +25,10 @@ namespace T2NSHOP.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 var Prouser = db.ProfileCustomers.FirstOrDefault(x => x.UserId == userId);
-                if (Prouser != null && Prouser.Image != null)
+                if (Prouser != null)
                 {
                     ViewBag.Image = Prouser.Image;
-                    ViewBag.Name = Prouser.Name;
+                    ViewBag.Name = Prouser.UserName;
                 }
 
                 return PartialView();
@@ -49,6 +47,7 @@ namespace T2NSHOP.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Subscribe(Subscribe req)
         {
             if (ModelState.IsValid)
@@ -58,19 +57,6 @@ namespace T2NSHOP.Controllers
                 return Json(new { Success = true });
             }
             return View("Partial_Subcrice", req);
-        }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }

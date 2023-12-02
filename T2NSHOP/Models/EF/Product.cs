@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace T2NSHOP.Models.EF
@@ -16,6 +13,7 @@ namespace T2NSHOP.Models.EF
             this.ProductImage = new HashSet<ProductImage>();
             this.OrderDetails = new HashSet<OrderDetail>();
             this.ProductAttris = new HashSet<ProductAttri>();
+            this.ReviewProducts = new HashSet<ReviewProduct>();
         }
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -54,5 +52,6 @@ namespace T2NSHOP.Models.EF
         public virtual ICollection<ProductImage> ProductImage { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductAttri> ProductAttris { get; set; }
+        public virtual ICollection<ReviewProduct> ReviewProducts { get; set; }
     }
 }

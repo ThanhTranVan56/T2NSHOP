@@ -1,4 +1,5 @@
 ﻿@using T2NSHOP.Models
+@using System.Configuration;
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
@@ -30,12 +31,17 @@
                     @Html.ValidationMessageFor(m => m.Password, "", new { @style = "color: red" })
                 </div>
 
-                <p class="forgot">
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>
+                <div class="g-recaptcha" style="height:50px;" data-sitekey="@(ConfigurationManager.AppSettings["reCaptchaPublicKey"])"></div>
+
                 <p class="submit">
                     <button type="submit" name="commit">Sign In</button>
                 </p>
+                <p class="forgot">
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>
+                <span style="color:red; display:inline-block; font-size:14px;">
+                    @ViewBag.Message
+                </span>
 
             }
             <div class="login-help">

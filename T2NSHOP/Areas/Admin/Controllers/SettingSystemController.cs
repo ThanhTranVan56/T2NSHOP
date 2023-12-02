@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
+using static T2NSHOP.FilterConfig;
 
 namespace T2NSHOP.Areas.Admin.Controllers
 {
@@ -18,6 +19,7 @@ namespace T2NSHOP.Areas.Admin.Controllers
             return PartialView();
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult AddSetting(SettingSystemViewModel req)
         {
             SystemSetting set = null;
@@ -34,18 +36,18 @@ namespace T2NSHOP.Areas.Admin.Controllers
                 checkTitle.SettingValue = req.SettingTitle;
                 db.Entry(checkTitle).State = System.Data.Entity.EntityState.Modified;
             }
-            var checkLogo = db.SystemSettings.FirstOrDefault(x => x.SettingKey.Contains("SettingLogo"));
-            if (checkLogo == null)
+            var checkBanner = db.SystemSettings.FirstOrDefault(x => x.SettingKey.Contains("SettingBanner"));
+            if (checkBanner == null)
             {
                 set = new SystemSetting();
-                set.SettingKey = "SettingLogo";
-                set.SettingValue = req.SettingLogo;
+                set.SettingKey = "SettingBanner";
+                set.SettingValue = req.SettingBanner;
                 db.SystemSettings.Add(set);
             }
             else
             {
-                checkLogo.SettingValue = req.SettingLogo;
-                db.Entry(checkLogo).State = System.Data.Entity.EntityState.Modified;
+                checkBanner.SettingValue = req.SettingBanner;
+                db.Entry(checkBanner).State = System.Data.Entity.EntityState.Modified;
             }
             var checkHotline = db.SystemSettings.FirstOrDefault(x => x.SettingKey.Contains("SettingHotline"));
             if (checkHotline == null)

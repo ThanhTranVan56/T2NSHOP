@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
 using T2NSHOP.Models.Payments;
+using static T2NSHOP.FilterConfig;
 
 namespace T2NSHOP.Controllers
 {
@@ -20,7 +21,6 @@ namespace T2NSHOP.Controllers
             var tongtien = decimal.Zero;
             if (cart != null && cart.Any())
             {
-
                 foreach (var item in cart)
                 {
                     tongtien += item.TotalPrice;
@@ -28,10 +28,12 @@ namespace T2NSHOP.Controllers
                 ViewBag.CheckCart = cart;
                 ViewBag.Count = cart.Count();
                 ViewBag.TotalPrice = tongtien;
+                return View();
             }
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult AddtoCart(ShoppingCart model, int id, int quantity, string color, string size)
         {
             var code = new { Success = false, msg = "", code = -1, Count = 0, Idpro = 0, Size = "" };

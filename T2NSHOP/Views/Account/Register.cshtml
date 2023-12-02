@@ -1,5 +1,6 @@
 ﻿@model T2NSHOP.Models.RegisterViewModel
 @using T2NSHOP.Models
+@using System.Configuration;
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
@@ -35,9 +36,14 @@
                     @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @style = "color: red" })
                 </div>
 
+                <div class="g-recaptcha" style="height:50px;" data-sitekey="@(ConfigurationManager.AppSettings["reCaptchaPublicKey"])"></div>
+
                 <p class="submit">
                     <button type="submit" name="commit">Sign Up</button>
                 </p>
+                <span style="color:red; display:inline-block; font-size:14px;">
+                    @ViewBag.Message
+                </span>
 
             }
         </div>

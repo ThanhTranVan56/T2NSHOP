@@ -114,6 +114,9 @@ $(document).ready(function () {
     // addToCart
     $('body').on('click', '.btnAddToCart', function (e) {
         e.preventDefault();
+        var headers = {};
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         var id = $(this).data('id');
         var tquantity = 1;
         var Quantity = parseInt($('#quantity').val());;
@@ -126,6 +129,7 @@ $(document).ready(function () {
             $.ajax({
                 url: '/shoppingcart/addtocart',
                 type: 'POST',
+                headers: headers,
                 data: { id: id, quantity: tquantity, color: color, size: size },
                 success: function (rs) {
                     if (rs.Success) {
@@ -167,7 +171,6 @@ $(document).ready(function () {
 });
 
 function ShowQuantity(id, color, size) {
-    debugger;
     var headers = {};
     var token = $('input[name="__RequestVerificationToken"]').val();
     headers['__RequestVerificationToken'] = token;

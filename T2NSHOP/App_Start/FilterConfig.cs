@@ -17,9 +17,11 @@ namespace T2NSHOP
             public override void OnAuthorization(AuthorizationContext filterContext)
             {
                 var request = filterContext.HttpContext.Request;
+                // Only validate POSTs  
                 if (request.HttpMethod == WebRequestMethods.Http.Post)
                 {
-                    if (request.IsAjaxRequest())
+                    var formTokenValue = request.Form["__RequestVerificationToken"];
+                    if (request.IsAjaxRequest() && string.IsNullOrEmpty(formTokenValue))
                     {
                         var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName];
                         var cookieValue = antiForgeryCookie != null ? antiForgeryCookie.Value : null;

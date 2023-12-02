@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -113,7 +117,17 @@ namespace T2NSHOP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-
+            var response = Request["g-recaptcha-response"];
+            string secretKey = ConfigurationManager.AppSettings["reCaptchaPrivateKey"];
+            var client = new WebClient();
+            var resultg = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(resultg);
+            var status = (bool)obj.SelectToken("success");
+            ViewBag.Message = status ? "Google reCaptcha validation success" : "Google reCaptcha validation failed";
+            if (!status)
+            {
+                return View(model);
+            }
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -195,6 +209,17 @@ namespace T2NSHOP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var response = Request["g-recaptcha-response"];
+            string secretKey = ConfigurationManager.AppSettings["reCaptchaPrivateKey"];
+            var client = new WebClient();
+            var resultg = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(resultg);
+            var status = (bool)obj.SelectToken("success");
+            ViewBag.Message = status ? "Google reCaptcha validation success" : "Google reCaptcha validation failed";
+            if (!status)
+            {
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, CreateDate = DateTime.Now };
@@ -207,7 +232,7 @@ namespace T2NSHOP.Controllers
                     {
                         UserId = user.Id,
                         UserName = user.UserName,
-                        DateOfBirth = DateTime.Now,
+                        DateOfBirth = DateTime.ParseExact("05/06/2000", "dd/MM/yyyy", CultureInfo.InvariantCulture),
                         TypePaymentVN = 0
                     };
                     db.ProfileCustomers.Add(profileid);

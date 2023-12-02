@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,7 +25,20 @@ namespace T2NSHOP.Controllers
             {
                 return View(item);
             }
-            return View();
+            else
+            {
+                var profileid = new ProfileCustomer
+                {
+                    UserId = iuser,
+                    DateOfBirth = DateTime.ParseExact("05/06/2000", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                    TypePaymentVN = 0
+                };
+                db.ProfileCustomers.Add(profileid);
+                db.SaveChanges();
+                var items = db.ProfileCustomers.FirstOrDefault(x => x.UserId == iuser);
+                return View(items);
+            }
+            
         }
 
         public ActionResult Address()
@@ -74,7 +88,7 @@ namespace T2NSHOP.Controllers
         }
 
         [HttpPost]
-
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult AddProfile(string id, string Name, string Gender, DateTime DateOfBirth)
         {
             var checkpro = db.ProfileCustomers.FirstOrDefault(x => x.UserId == id);
@@ -91,6 +105,7 @@ namespace T2NSHOP.Controllers
 
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult SaveImage(string imageUrl)
         {
             if (imageUrl != null)

@@ -53,6 +53,7 @@
             @Html.TextBoxFor(x=>x.UserName, new {@class = "form_input input_name", @placeholder = "Name", @id = "review_name"})
             @Html.TextBoxFor(x=>x.Email, new {@class = "form_input input_email", @placeholder = "Email", @id = "review_email" })
             @Html.HiddenFor(x=>x.ProductId, new {@value = ViewBag.ProductId})
+            @Html.HiddenFor(x => x.Avata)
        </div>
         <div>
             <h1>Đánh giá của bạn:</h1>

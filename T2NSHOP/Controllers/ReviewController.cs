@@ -30,7 +30,9 @@ namespace T2NSHOP.Controllers
                 {
                     var prouser = db.ProfileCustomers.FirstOrDefault(x => x.UserId == user.Id);
                     item.UserName = prouser.UserName;
+                    item.Avata = prouser.Image;
                     item.Email = user.Email;
+                    
                     return PartialView(item);
                 }
                 return PartialView();

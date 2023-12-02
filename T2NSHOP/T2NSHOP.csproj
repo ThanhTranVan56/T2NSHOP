@@ -5425,7 +5425,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jsShopping.js" />
-    <Content Include="Scripts\jsShop\detailProduct.js" />
+    <Content Include="Scripts\jsShop\detaiProduct.js" />
     <Content Include="Scripts\jsShop\shoppingCart.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Uploads\Images\category_product\iconAoCLB1.jpg" />
@@ -5582,6 +5582,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\ckfinder\userfiles\" />
+    <Folder Include="Uploads\Images_Public\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

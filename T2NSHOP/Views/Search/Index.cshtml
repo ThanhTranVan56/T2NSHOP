@@ -48,10 +48,9 @@
                     <div class="row">
                         <div class="col">
 
-                            @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { }))
+                            @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { }))
                             {
-                                @Html.AntiForgeryToken()
-                                <form class="form-inline">
+                                @Html.AntiForgeryToken()<form class="form-inline">
                                     <div class="input-group input-group-sm">
                                         <input class="form-control form-control-navbar" id="searchdb" style="min-width: 400px; max-width: 400px; border-color: #80bdff" type="text" name="Searchtext" placeholder="Search">
 
@@ -60,6 +59,13 @@
                                                 <i class="fa fa-search"></i>
                                             </button>
                                         </div>
+                                        @if (ViewBag.Error != null) { 
+                                       
+                                        }
+                                        else
+                                        {
+                                            <p style="margin-top: 10px; margin-left: 20px;">@ViewBag.Notification</p>
+                                        }
                                     </div>
                                 </form>
                             }
@@ -117,7 +123,25 @@
 @section scripts{
     <script src="~/Content/assets/js/categories_custom.js"></script>
     <script>
-
+        $(document).ready(function () {
+            var hasError = @((ViewBag.Error != null).ToString().ToLower());
+            if (hasError) {
+                $(document).ready(function () {
+                    errorMessage();
+                });
+            }
+        });
+        function errorMessage() {
+            $(document).Toasts('create', {
+                title: 'Thông báo',
+                class: 'bg-danger',
+                autohide: true,
+                delay: 1300,
+                body: 'Vui lòng không nhập kí tự đặc biệt'
+            });
+            
+        }
     </script>
+
 }
 

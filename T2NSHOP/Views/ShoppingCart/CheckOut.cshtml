@@ -105,7 +105,7 @@
                             </select>
                         </div>
                         <input type="text" name="Address" id="Address" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
-                        <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                        <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" disabled/>
                     </div>
                 </div>
                 <div class="modal-footer align-self-end">
@@ -141,7 +141,7 @@
 
 
                         <input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
-                        <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
+                        <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" disabled/>
                     </div>
 
                 </div>
@@ -199,7 +199,6 @@
                     }
                 }
             };
-
         }
         document.getElementById('city').addEventListener('change', updateAddressDt);
         document.getElementById('district').addEventListener('change', updateAddressDt);
@@ -213,8 +212,9 @@
             var wardSelect = document.getElementById('ward');
             var selectedWard = wardSelect.options[wardSelect.selectedIndex].innerHTML;
             var address = document.getElementById('Address').value;
+            var filteredAddress = address.replace(/[^\w\s]/gi, '');
 
-            var addressDt = address + ', ' + selectedWard + ', ' + selectedDistrict + ', ' + selectedCity;
+            var addressDt = filteredAddress + ', ' + selectedWard + ', ' + selectedDistrict + ', ' + selectedCity;
 
             document.getElementById('AddressDt').value = addressDt;
         }
@@ -331,7 +331,22 @@
                     data: { Id: UId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
                     success: function (res) {
                         if (res.Success) {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-success',
+                                autohide: true,
+                                delay: 750,
+                                body: 'Thêm mới địa chỉ thành công'
+                            });
                             location.reload();
+                        } else {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-danger',
+                                autohide: true,
+                                delay: 1300,
+                                body: 'Thêm mới địa chỉ thất bại!'
+                            });
                         }
                     }
                 });
@@ -353,7 +368,22 @@
                     data: { Id: AId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
                     success: function (res) {
                         if (res.Success) {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-success',
+                                autohide: true,
+                                delay: 750,
+                                body: 'Cập nhật địa chỉ thành công'
+                            });
                             location.reload();
+                        } else {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-danger',
+                                autohide: true,
+                                delay: 1300,
+                                body: 'Cập nhật địa chỉ thất bại!'
+                            });
                         }
                     }
                 });
@@ -375,7 +405,22 @@
                         data: { id: id },
                         success: function (res) {
                             if (res.Success) {
+                                $(document).Toasts('create', {
+                                    title: 'Thông báo',
+                                    class: 'bg-success',
+                                    autohide: true,
+                                    delay: 750,
+                                    body: 'Thêm địa chỉ mặc định thành công'
+                                });
                                 location.reload();
+                            } else {
+                                $(document).Toasts('create', {
+                                    title: 'Thông báo',
+                                    class: 'bg-danger',
+                                    autohide: true,
+                                    delay: 1300,
+                                    body: 'Thêm địa chỉ mặc định thất bại!'
+                                });
                             }
                         }
                     });

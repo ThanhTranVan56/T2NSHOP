@@ -191,6 +191,7 @@
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\Filter.cs" />
     <Compile Include="Common\GettingType.cs" />
+    <Compile Include="Common\RemoveSpecialCharacter.cs" />
     <Compile Include="Common\SettingHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
@@ -5499,6 +5500,7 @@
     <Content Include="Uploads\Images\product\Áo Traning không logo màu đỏ trắng.png" />
     <Content Include="Uploads\Images\product\Áo đá banh dài tay Real Madrid 2015-2016 xám.png" />
     <Content Include="Uploads\Images\inshop\superSale.jpg" />
+    <Content Include="Uploads\Images_Public\thanh10at3%40gmail.com\z4427535247203_dbda515c244cab10525708f55fb425cd.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5577,12 +5579,12 @@
     <Content Include="Views\Profile\Partial_Item_OrderDetail.cshtml" />
     <Content Include="Views\Review\Partial_Review.cshtml" />
     <Content Include="Views\Review\Partial_Load_Review.cshtml" />
+    <Content Include="Views\Profile\UserProfiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\ckfinder\userfiles\" />
-    <Folder Include="Uploads\Images_Public\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

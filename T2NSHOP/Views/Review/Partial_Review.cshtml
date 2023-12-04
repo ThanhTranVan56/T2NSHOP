@@ -15,7 +15,7 @@
     {
         <script>
             function OnBeginRE() {
-               
+
             }
             function OnSuccessRE(res) {
                 if (res.Success) {
@@ -47,28 +47,37 @@
                 });
             }
         </script>
-        @Html.AntiForgeryToken()
-        <div>
-            <h1>Đánh giá</h1>
-            @Html.TextBoxFor(x=>x.UserName, new {@class = "form_input input_name", @placeholder = "Name", @id = "review_name"})
-            @Html.TextBoxFor(x=>x.Email, new {@class = "form_input input_email", @placeholder = "Email", @id = "review_email" })
-            @Html.HiddenFor(x=>x.ProductId, new {@value = ViewBag.ProductId})
-            @Html.HiddenFor(x => x.Avata)
-       </div>
-        <div>
-            <h1>Đánh giá của bạn:</h1>
-            <ul class="user_star_rating">
-                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-            </ul>
-            @Html.TextAreaFor(x => x.Content, new { @class = "input_review", @rows = "4", @placeholder = "...." })
-        </div>
-        <div class="text-left text-sm-right">
-            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">Gửi</button>
-        </div>
+        if (Model != null)
+        {
+            @Html.AntiForgeryToken()
+            <div>
+                <h1>Đánh giá</h1>
+                @Html.TextBoxFor(x => x.UserName, new { @class = "form_input input_name", @placeholder = "Name", @id = "review_name" })
+                @Html.TextBoxFor(x => x.Email, new { @class = "form_input input_email", @placeholder = "Email", @id = "review_email" })
+                @Html.HiddenFor(x => x.ProductId, new { @value = ViewBag.ProductId })
+                @Html.HiddenFor(x => x.Avata)
+            </div>
+            <div>
+                <h1>Đánh giá của bạn:</h1>
+                <input type="text" id="txtRate" name="Rate" value="4" style="visibility:hidden" />
+                <ul class="user_star_rating">
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                </ul>
+                @Html.TextAreaFor(x => x.Content, new { @class = "input_review", @rows = "4", @placeholder = "...." })
+            </div>
+            <div class="text-left text-sm-right">
+                <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">Gửi</button>
+            </div>
+        }
+        else
+        {
+            <h5><a href="/account/Login?returnUrl=@Url.Encode(Request.RawUrl)" style="color:#0cf2eb">Đăng nhập</a> để đánh giá</h5>
+        }
+
     }
 </div>
 

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
 using static T2NSHOP.FilterConfig;
+using T2NSHOP.Common;
 
 namespace T2NSHOP.Controllers
 {
@@ -17,6 +18,11 @@ namespace T2NSHOP.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Profile
         public ActionResult Index()
+        {
+            return View();
+            
+        }
+        public ActionResult UserProfiles()
         {
             var iuser = User.Identity.GetUserId();
             ViewBag.IdUser = iuser;
@@ -38,9 +44,7 @@ namespace T2NSHOP.Controllers
                 var items = db.ProfileCustomers.FirstOrDefault(x => x.UserId == iuser);
                 return View(items);
             }
-            
         }
-
         public ActionResult Address()
         {
             var iuser = User.Identity.GetUserId();
@@ -91,6 +95,11 @@ namespace T2NSHOP.Controllers
         [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult AddProfile(string id, string Name, string Gender, DateTime DateOfBirth)
         {
+            string checkName = RemoveSpecialCharacter.RemoveSpecialCharacters(Name);
+            if(checkName != Name)
+            {
+                return Json(new { Success = false });
+            }
             var checkpro = db.ProfileCustomers.FirstOrDefault(x => x.UserId == id);
             if (checkpro != null)
             {
@@ -145,6 +154,13 @@ namespace T2NSHOP.Controllers
         [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult AddAddress(string Id, string Name, string Phone, string Address, string AddressDt)
         {
+            string checkName = RemoveSpecialCharacter.RemoveSpecialCharacters(Name);
+            string checkPhone = RemoveSpecialCharacter.RemoveSpecialCharacters(Phone);
+            string checkAddress = RemoveSpecialCharacter.RemoveSpecialCharacters(Address);
+            if (checkName != Name || checkPhone != Phone || checkAddress != Address)
+            {
+                return Json(new { message = "UnSuccess", Success = false });
+            }
             var iuser = User.Identity.GetUserId();
             var item = db.ProfileCustomers.FirstOrDefault(x => x.UserId == iuser);
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
@@ -261,6 +277,7 @@ namespace T2NSHOP.Controllers
                 return HttpNotFound();
             }
         }
+
         [HttpPost]
         public ActionResult DeleteAddress(int id)
         {

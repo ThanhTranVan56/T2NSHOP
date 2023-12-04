@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using T2NSHOP.Models;
 using T2NSHOP.Models.EF;
+using T2NSHOP.Common;
 
 namespace T2NSHOP.Controllers
 {
@@ -10,31 +11,65 @@ namespace T2NSHOP.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Search
-        [HttpGet]
+
+        public ActionResult Index()
+        {  
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(string Searchtext)
         {
             if (!string.IsNullOrEmpty(Searchtext))
             {
-                IEnumerable<Product> items = db.Products.ToList();
-                items = items.Where(x => x.Title.Contains(Searchtext) || x.Alias.Contains(Searchtext));
-                return View(items);
+                string searchText = RemoveSpecialCharacter.RemoveSpecialCharacters(Searchtext);
+                if (searchText != Searchtext)
+                {
+                    ViewBag.Error = "Vui lòng không nhập kí tự đặc biệt";
+                    return View();
+                }
+                else
+                {
+                    IEnumerable<Product> items = db.Products.ToList();
+                    items = items.Where(x => x.Title.Contains(searchText) || x.Alias.Contains(searchText));
+                    ViewBag.Notification = "Kết quả tìm kiếm cho từ khoá '" + searchText + "' : " + items.Count() + " giá trị";
+                    return View(items);
+                }
             }
             return View();
         }
-        [HttpGet]
-        public ActionResult SearchProductCategory(string alias, int id, string Searchtext)
+        
+        public ActionResult SearchProductCategory(string alias, int id)
         {
-
+            var cate = db.ProductCategories.Find(id);
+            if (cate != null)
+            {
+                ViewBag.CateName = cate.Titel;
+            }
+            ViewBag.CateId = id;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SearchProductCategory(int id, string Searchtext)
+        {
             if (!string.IsNullOrEmpty(Searchtext))
             {
-                if (id > 0)
+                string searchText = RemoveSpecialCharacter.RemoveSpecialCharacters(Searchtext);
+                if (searchText != Searchtext)
+                {
+                    ViewBag.Error = "Vui lòng không nhập kí tự đặc biệt";
+                    return View();
+                }
+                else
                 {
                     IEnumerable<Product> items = db.Products.Where(x => x.ProductCategoryID == id).ToList();
-                    items = items.Where(x => x.Title.Contains(Searchtext) || x.Alias.Contains(Searchtext));
+                    items = items.Where(x => x.Title.Contains(searchText) || x.Alias.Contains(searchText));
                     var cate = db.ProductCategories.Find(id);
                     if (cate != null)
                     {
                         ViewBag.CateName = cate.Titel;
+                        ViewBag.Notification = "Kết quả tìm kiếm cho từ khoá '" + searchText + "' : " + items.Count() + " giá trị";
                     }
                     ViewBag.CateId = id;
                     return View(items);
@@ -42,20 +77,8 @@ namespace T2NSHOP.Controllers
             }
             else
             {
-                if (id > 0)
-                {
-                    var cate = db.ProductCategories.Find(id);
-                    if (cate != null)
-                    {
-                        ViewBag.CateName = cate.Titel;
-                    }
-                    ViewBag.CateId = id;
-                    return View();
-                }
+                return View();
             }
-            return View();
-
-
         }
 
     }

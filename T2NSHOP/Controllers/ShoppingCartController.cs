@@ -82,7 +82,7 @@ namespace T2NSHOP.Controllers
             }
             return Json(code);
         }
-
+        [HttpGet]
         public ActionResult Partial_Item_Cart()
         {
             var cart = db.shoppingCarts.Where(x => x.IdUser == User.Identity.Name && x.IsDelete == false).ToList();

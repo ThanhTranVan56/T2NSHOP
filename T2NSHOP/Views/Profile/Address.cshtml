@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
 <link href="~/Content/cssShop/cssProject.css" rel="stylesheet" />
+
 <div class="project_container">
     <div class="project_category">
         <div class="project_avata">
@@ -23,7 +24,7 @@
         </div>
         <div class="p_category">
             <div class="stardust-dropdown">
-                <a class="cate_pro" href="/profile/index">
+                <a class="cate_pro" href="/profile/userprofiles">
                     <div class="cate_img">
                         <img src="~/Uploads/Images/inshop/hoso_img.png" />
                     </div>
@@ -134,39 +135,44 @@
 <div class="modal fade" id="modal-addAddress" data-id="ViewBag.IdUser">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
-                <div class="" style="margin:25px 20px 20px ">
-                    <h4>Địa chỉ mới</h4>
-                    <div class=" row">
-                        <div class="col-md-6">
-                            <input type="text" name="NameAdd" id="NameAdd" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                    <div class="" style="margin:25px 20px 20px ">
+                        <h4>Địa chỉ mới</h4>
+                        <div class=" row">
+                            <div class="col-md-6">
+                                <input type="text" name="NameAdd" id="NameAdd" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="Phone" id="Phone" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" name="Phone" id="Phone" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                        <div>
+                            <select class="form-select form-select-sm mb-3" id="city" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn tỉnh thành</option>
+                            </select>
+
+                            <select class="form-select form-select-sm mb-3" id="district" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn quận huyện</option>
+                            </select>
+
+                            <select class="form-select form-select-sm" id="ward" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn phường xã</option>
+                            </select>
                         </div>
+                        <input type="text" name="Address" id="Address" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ (tùy chọn)" />
+                        <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" disabled />
                     </div>
-                    <div>
-                        <select class="form-select form-select-sm mb-3" id="city" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
-                            <option value="" selected>Chọn tỉnh thành</option>
-                        </select>
 
-                        <select class="form-select form-select-sm mb-3" id="district" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
-                            <option value="" selected>Chọn quận huyện</option>
-                        </select>
-
-                        <select class="form-select form-select-sm" id="ward" style="width: 100%; margin-bottom: 15px; height: 40px" aria-label=".form-select-sm">
-                            <option value="" selected>Chọn phường xã</option>
-                        </select>
-                    </div>
-                    <input type="text" name="Address" id="Address" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ (tùy chọn)" />
-                    <input type="text" name="AddressDt" id="AddressDt" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
                 </div>
+                <div class="modal-footer align-self-end">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="btnAdddb">Thêm mới</button>
+                </div>
+            }
 
-            </div>
-            <div class="modal-footer align-self-end">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="btnAdddb">Thêm mới</button>
-            </div>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -175,29 +181,34 @@
 <div class="modal fade" id="modal-editAddress">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
-                <div class="" style="margin:25px 20px 20px ">
-                    <h4>Địa chỉ</h4>
-                    <div style="display:none">
-                        <input type="text" name="IdAdd" id="IdAdd" value="" />
-                    </div>
-                    <div class=" row">
-                        <div class="col-md-6">
-                            <input type="text" name="NameAdd" id="NameEdit" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="noidungpopup noidung" style="padding-left: 10px; padding-right: 10px; margin: 0">
+                    <div class="" style="margin:25px 20px 20px ">
+                        <h4>Địa chỉ</h4>
+                        <div style="display:none">
+                            <input type="text" name="IdAdd" id="IdAdd" value="" />
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" name="Phone" id="PhoneEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                        <div class=" row">
+                            <div class="col-md-6">
+                                <input type="text" name="NameAdd" id="NameEdit" value="" style="width: 100%; margin-bottom: 15px;height:40px" placeholder="Họ và tên" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="Phone" id="PhoneEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Số điện thoại" />
+                            </div>
                         </div>
+                        <input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
+                        <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" disabled/>
                     </div>
-                    <input type="text" name="Address" id="AddressEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px" placeholder="Địa chỉ" />
-                    <input type="text" name="AddressDt" id="AddressDtEdit" value="" style="width: 100%; margin-bottom: 15px; height: 40px " placeholder="Địa chỉ cụ thể" />
-                </div>
 
-            </div>
-            <div class="modal-footer align-self-end">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="btnEditdb">Cập nhật</button>
-            </div>
+                </div>
+                <div class="modal-footer align-self-end">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="btnEditdb">Cập nhật</button>
+                </div>
+            }
+
         </div>-->
         @*/.modal-content*@
     </div>
@@ -280,13 +291,32 @@
                 var Phone = $('#Phone').val();
                 var Address = $('#Address').val();
                 var AddressDt = $('#AddressDt').val();
+                var headers = {};
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                headers['__RequestVerificationToken'] = token;
                 $.ajax({
                     url: '/Profile/AddAddress',
                     type: 'POST',
+                    headers: headers,
                     data: { Id: UId, Name: Name, Phone: Phone, Address: Address, AddressDt: AddressDt },
                     success: function (res) {
                         if (res.Success) {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-success',
+                                autohide: true,
+                                delay: 750,
+                                body: 'Thêm mới địa chỉ thành công'
+                            });
                             location.reload();
+                        } else {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-danger',
+                                autohide: true,
+                                delay: 1300,
+                                body: 'Thêm mới địa chỉ thất bại!'
+                            });
                         }
                     }
                 });
@@ -296,17 +326,32 @@
                 var Name = $('#NameEdit').val();
                 var Phone = $('#PhoneEdit').val();
                 var AddressDt = $('#AddressDtEdit').val();
+                var headers = {};
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                headers['__RequestVerificationToken'] = token;
                 $.ajax({
                     url: '/Profile/EditAddress',
                     type: 'POST',
+                    headers: headers,
                     data: { Id: AId, Name: Name, Phone: Phone, AddressDt: AddressDt },
                     success: function (res) {
                         if (res.Success) {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-success',
+                                autohide: true,
+                                delay: 750,
+                                body: 'Cập nhật địa chỉ thành công'
+                            });
                             location.reload();
-                            $('a[href="#activity"]').removeClass('active');
-                            $('a[href="#settings"]').addClass('active');
-                            $('#activity').removeClass('active');
-                            $('#settings').addClass('active');
+                        } else {
+                            $(document).Toasts('create', {
+                                title: 'Thông báo',
+                                class: 'bg-danger',
+                                autohide: true,
+                                delay: 1300,
+                                body: 'Cập nhật địa chỉ thất bại!'
+                            });
                         }
                     }
                 });
@@ -321,7 +366,22 @@
                         data: { id: id },
                         success: function (res) {
                             if (res.Success) {
+                                $(document).Toasts('create', {
+                                    title: 'Thông báo',
+                                    class: 'bg-success',
+                                    autohide: true,
+                                    delay: 750,
+                                    body: 'Xóa địa chỉ thành công'
+                                });
                                 location.reload();
+                            } else {
+                                $(document).Toasts('create', {
+                                    title: 'Thông báo',
+                                    class: 'bg-danger',
+                                    autohide: true,
+                                    delay: 1300,
+                                    body: 'Xóa địa chỉ thất bại!'
+                                });
                             }
                         }
                     });
@@ -340,7 +400,22 @@
                         data: { id: id },
                         success: function (res) {
                             if (res.Success) {
+                                $(document).Toasts('create', {
+                                    title: 'Thông báo',
+                                    class: 'bg-success',
+                                    autohide: true,
+                                    delay: 750,
+                                    body: 'Thêm địa chỉ mặc định thành công'
+                                });
                                 location.reload();
+                            } else {
+                                $(document).Toasts('create', {
+                                    title: 'Thông báo',
+                                    class: 'bg-danger',
+                                    autohide: true,
+                                    delay: 1300,
+                                    body: 'Thêm địa chỉ mặc định thất bại!'
+                                });
                             }
                         }
                     });
@@ -361,13 +436,13 @@
             var wardSelect = document.getElementById('ward');
             var selectedWard = wardSelect.options[wardSelect.selectedIndex].innerHTML;
             var address = document.getElementById('Address').value;
-
-            var addressDt = address + ', ' + selectedWard + ', ' + selectedDistrict + ', ' + selectedCity;
+            var filteredAddress = address.replace(/[^\w\s]/gi, '');
+            var addressDt = filteredAddress + ', ' + selectedWard + ', ' + selectedDistrict + ', ' + selectedCity;
 
             document.getElementById('AddressDt').value = addressDt;
         }
 
-                        // Hàm xử lý khi có sự thay đổi giá trị
+                            // Hàm xử lý khi có sự thay đổi giá trị
 
     </script>
 }

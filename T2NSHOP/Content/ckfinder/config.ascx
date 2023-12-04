@@ -120,7 +120,7 @@
 
         if (HttpContext.Current.User.IsInRole("Admin"))
         {
-            currentRole = "Administrators";
+            currentRole = "Admin";
         }
         else
         {

@@ -7,22 +7,28 @@ $(document).ready(function () {
 
     // Lấy danh sách cáccheckbox trong bảng
     var checkboxes = $('table.tableItem tbody tr td input[type="checkbox"]');
-
+    var headers = {};
+    var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+    headers['__RequestVerificationToken'] = token;
     // Đặt lại trạng thái của các checkbox bằng cách sử dụng biến isChecked
     checkboxes.each(function () {
         var id = $(this).val();
         if (isChecked.hasOwnProperty(id)) {
             $(this).prop('checked', isChecked[id]);
-            UpdateIsActive(id, isChecked[id]);
+            UpdateIsActive(id, isChecked[id], headers);
         }
     });
 
     //shoppingcartGetSizeByColor
     $('body').on('click', '.btnclickcolor', function () {
+        var headers = {};
+        var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         var color = $(this).val();
         $.ajax({
             url: '/shoppingcart/GetSizesByColor',
             type: 'POST',
+            headers: headers,
             data: { color: color },
             dataType: 'json',
             success: function (response) {
@@ -40,12 +46,16 @@ $(document).ready(function () {
         dataId = $(this).data('id');
     });
     $('body').on('click', '.btnSuccesscolorsize', function () {
+        var headers = {};
+        var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         var colorv = $('.btnclickcolor.active').data('color');
         var sizev = $('.btnsize.active').data('size');
         var id = dataId;
         $.ajax({
             url: '/ShoppingCart/UpdateColorSize',
             type: 'POST',
+            headers: headers,
             data: { id: id, color: colorv, size: sizev },
             success: function (rs) {
                 if (rs.Success) {
@@ -78,30 +88,37 @@ $(document).ready(function () {
     });
 
     $('#selectAll').change(function () {
+        var headers = {};
+        var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         var isChecked = $(this).is(':checked');
         // Đặt trạng thái của tất cả các checkbox ở thứ tự thứ hai là giống với checkbox ở thứ tự đầu tiên
         $('table.tableItem tbody tr td input[type="checkbox"]').prop('checked', isChecked);
         //Cập nhật IsAcive ở data
         if (this.checked) {
             console.log('Tất cả Checkbox được chọn');
-            UpdateIsActiveAll(this.checked);
+            UpdateIsActiveAll(this.checked, headers);
         } else {
             console.log('Tất cả Checkbox bị bỏ chọn');
-            UpdateIsActiveAll(this.checked);
+            UpdateIsActiveAll(this.checked, headers);
         }
     });
 
     // Lắng nghe sự kiện khi người dùng tick vào checkbox ở thứ tự thứ hai trở đi
     $('table.tableItem tbody').on('change', 'tr td input[type="checkbox"]', function () {
+        debugger;
+        var headers = {};
+        var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         // Cập nhật số lượng sản phẩm được chọn ở #checkoutcart
         var id = $(this).val();
         isChecked[id] = this.checked;
         if (this.checked) {
             console.log('Checkbox có giá trị ' + id + ' được chọn');
-            UpdateIsActive(id, this.checked);
+            UpdateIsActive(id, this.checked, headers);
         } else {
             console.log('Checkbox có giá trị ' + id + ' bị bỏ chọn');
-            UpdateIsActive(id, this.checked);
+            UpdateIsActive(id, this.checked, headers);
         }
         localStorage.setItem('isChecked', JSON.stringify(isChecked));
     });
@@ -109,6 +126,9 @@ $(document).ready(function () {
 
     $('body').on('click', '.btnDelete', function (e) {
         e.preventDefault();
+        var headers = {};
+        var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         var id = $(this).data('id');
         $(document).Toasts('create', {
             title: 'Thông báo',
@@ -120,6 +140,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/shoppingcart/Delete',
             type: 'POST',
+            headers: headers,
             data: { id: id },
             success: function (rs) {
                 if (rs.Success) {
@@ -145,7 +166,9 @@ $(document).ready(function () {
     $('body').on('click', '.btnDeleteAllCart', function (e) {
         e.preventDefault();
         var str = "";
-
+        var headers = {};
+        var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         var checkbox = $(this).parents('.container').find('tr td input:checkbox');
         var i = 0;
         checkbox.each(function () {
@@ -170,6 +193,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: '/ShoppingCart/DeleteAll',
                     type: 'POST',
+                    headers: headers,
                     data: { ids: str },
                     success: function (rs) {
                         if (rs.Success) {
@@ -202,10 +226,12 @@ $(document).ready(function () {
     });
     $('body').on('click', '.btnUpdate', function (e) {
         e.preventDefault();
-        debugger;
+        var headers = {};
+        var token = $('#btnEditdbOut input[name="__RequestVerificationToken"]').val();
+        headers['__RequestVerificationToken'] = token;
         var id = $(this).data('id');
         var quantity = parseInt($('#quantity_' + id).val());
-        Update(id, quantity);
+        Update(id, quantity, headers);
     });
     $('body').on('click', '#btnButton', function (e) {
         e.preventDefault();
@@ -230,6 +256,7 @@ function DeleteAll() {
     $.ajax({
         url: '/shoppingcart/DeleteAll',
         type: 'POST',
+        headers: headers,
         success: function (rs) {
             if (rs.Success) {
                 LoadCart();
@@ -249,10 +276,11 @@ function LoadCart() {
         }
     });
 }
-function Update(id, quantity) {
+function Update(id, quantity, headers) {
     $.ajax({
         url: '/shoppingcart/Update',
         type: 'POST',
+        headers: headers,
         data: { id: id, quantity: quantity },
         success: function (rs) {
             if (rs.Success) {
@@ -261,10 +289,11 @@ function Update(id, quantity) {
         }
     });
 }
-function UpdateIsActive(id, isactive) {
+function UpdateIsActive(id, isactive, headers) {
     $.ajax({
         url: '/shoppingcart/UpdateIsActive',
         type: 'POST',
+        headers: headers,
         data: { id: id, isactive: isactive },
         success: function (rs) {
             if (rs.Success) {
@@ -281,10 +310,11 @@ function UpdateIsActive(id, isactive) {
         }
     });
 }
-function UpdateIsActiveAll(isactive) {
+function UpdateIsActiveAll(isactive, headers) {
     $.ajax({
         url: '/shoppingcart/UpdateIsActiveAll',
         type: 'POST',
+        headers: headers,
         data: { isactive: isactive },
         success: function (rs) {
             if (rs.Success) {

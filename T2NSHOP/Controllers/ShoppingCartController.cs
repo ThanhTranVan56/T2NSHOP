@@ -99,6 +99,7 @@ namespace T2NSHOP.Controllers
             return PartialView(items);
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult UpdateColorSize(int id, string color, string size)
         {
             var cart = db.shoppingCarts.Where(x => x.IdUser == User.Identity.Name && x.IsDelete == false).ToList();
@@ -119,6 +120,7 @@ namespace T2NSHOP.Controllers
             return Json(new { Success = false });
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult GetSizesByColor(string color)
         {
             var sizes = db.ProductAttris.Where(p => p.Alias == color && p.Quantity > 0)
@@ -137,6 +139,7 @@ namespace T2NSHOP.Controllers
             return Json(new { Count = 0 }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult Update(int id, int quantity)
         {
             var cart = db.shoppingCarts.Where(x => x.IdUser == User.Identity.Name && x.IsDelete == false).ToList();
@@ -157,6 +160,7 @@ namespace T2NSHOP.Controllers
             return Json(new { Success = false });
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult UpdateIsActive(int id, bool isactive)
         {
             var cart = db.shoppingCarts.Where(x => x.IdUser == User.Identity.Name && x.IsDelete == false).ToList();
@@ -193,6 +197,7 @@ namespace T2NSHOP.Controllers
             return Json(new { Count = 0, totalPrice = 0 }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult UpdateIsActiveAll(bool isactive)
         {
             var cart = db.shoppingCarts.Where(x => x.IdUser == User.Identity.Name && x.IsDelete == false).ToList();
@@ -211,6 +216,7 @@ namespace T2NSHOP.Controllers
             return Json(new { Success = false });
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult Delete(int id)
         {
             var code = new { Success = false, msg = "", code = -1, Count = 0 };
@@ -228,6 +234,7 @@ namespace T2NSHOP.Controllers
             return Json(code);
         }
         [HttpPost]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public ActionResult DeleteAll(string ids)
         {
             if (!string.IsNullOrEmpty(ids))
